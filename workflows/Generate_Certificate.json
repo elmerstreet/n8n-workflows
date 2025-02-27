@@ -1,0 +1,901 @@
+{
+  "name": "Generate Certificate",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1220,
+        80
+      ],
+      "id": "f8f48c22-7e05-4765-9049-96f99ec21c98",
+      "name": "When clicking ‘Test workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb851627-34a4-4158-8b52-9b97d262e639",
+              "name": "providerName",
+              "value": "Gary's Great AC",
+              "type": "string"
+            },
+            {
+              "id": "143b23b7-b28e-48ca-b818-b0e09cf0b475",
+              "name": "location",
+              "value": "Scottsdale, AZ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -260
+      ],
+      "id": "4d79ee98-e4f2-4002-9eba-cff84af7e897",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb851627-34a4-4158-8b52-9b97d262e639",
+              "name": "providerName",
+              "value": "Totally Cool HVAC Services LLC",
+              "type": "string"
+            },
+            {
+              "id": "647b6131-8e67-417f-b352-ac036a50d6a4",
+              "name": "location",
+              "value": "San Diego, CA",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -440
+      ],
+      "id": "41353830-5e17-4a0e-a36a-4b9a12e677c7",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb851627-34a4-4158-8b52-9b97d262e639",
+              "name": "providerName",
+              "value": "Cool Air",
+              "type": "string"
+            },
+            {
+              "id": "460df7a8-63b0-4043-98e9-2bba481f239f",
+              "name": "location",
+              "value": "Miami-Dade, FL",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -100
+      ],
+      "id": "ec3f8887-5853-43b0-8c5e-5c6a85848b63",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb851627-34a4-4158-8b52-9b97d262e639",
+              "name": "providerName",
+              "value": "ABC Florida Plumbing ",
+              "type": "string"
+            },
+            {
+              "id": "62d64068-382a-448c-8934-a9f63dbc098d",
+              "name": "location",
+              "value": "Austin, TX",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        80
+      ],
+      "id": "170b615c-1ea0-4e75-a18a-f16a3312b018",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b13caba-288c-42fe-ab83-b8dcac78245a",
+              "name": "providerName",
+              "value": "={{ $json.providerName }}",
+              "type": "string"
+            },
+            {
+              "id": "3607444e-5ef0-4f26-9380-699313e602bb",
+              "name": "location",
+              "value": "={{ $json.location }}",
+              "type": "string"
+            },
+            {
+              "id": "9c67b387-2cff-4fc1-ba7f-fb9396d3f90f",
+              "name": "providerID",
+              "value": "={{ $json.providerID }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -320,
+        -340
+      ],
+      "id": "848d0546-1590-48e8-82ef-bd9b59bb867a",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "toRecipients": "me@mackemlad.com, me2@mackemlad.com,shines@property.com,kcrawford@property.com",
+        "subject": "Your Property Pro Certificate",
+        "bodyContent": "=This is a test of how quickly we can generate certificates.  Note that the centering of the text needs a bit more work!!!\n\nThis was generated at {{ $now.format('yyyy-MM-dd hh:mm:ss') }}",
+        "additionalFields": {
+          "attachments": {
+            "attachments": [
+              {
+                "binaryPropertyName": "data"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        860,
+        -420
+      ],
+      "id": "05a37044-167d-4c72-b7f3-e9e6a0b8c942",
+      "name": "Microsoft Outlook",
+      "webhookId": "2a14410a-f9b0-4ea0-b428-f61473a4e48f",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "yWrSHIipkX77QiFW",
+          "name": "Microsoft Outlook account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb851627-34a4-4158-8b52-9b97d262e639",
+              "name": "providerName",
+              "value": "Zone Heating & Cooling",
+              "type": "string"
+            },
+            {
+              "id": "62d64068-382a-448c-8934-a9f63dbc098d",
+              "name": "location",
+              "value": "Prescott, AZ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        260
+      ],
+      "id": "0435d530-b7cd-4c9d-8d46-5221a94de6b0",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb851627-34a4-4158-8b52-9b97d262e639",
+              "name": "providerName",
+              "value": "Almost Done Roofing",
+              "type": "string"
+            },
+            {
+              "id": "62d64068-382a-448c-8934-a9f63dbc098d",
+              "name": "location",
+              "value": "New Orleans, LA",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        440
+      ],
+      "id": "9db1d242-a5c1-4b37-b4fb-5f9b0a7e3b66",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fb851627-34a4-4158-8b52-9b97d262e639",
+              "name": "providerName",
+              "value": "Bubba Gump Flooring",
+              "type": "string"
+            },
+            {
+              "id": "62d64068-382a-448c-8934-a9f63dbc098d",
+              "name": "location",
+              "value": "Memphis, TN",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        620
+      ],
+      "id": "0b07db4a-e12c-4b1c-bcdc-fffde28e6129",
+      "name": "Edit Fields7"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cert",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -780,
+        -660
+      ],
+      "id": "6d5ac97c-dacc-4c75-98ae-6abab0b18bf0",
+      "name": "Webhook",
+      "webhookId": "72c44406-3f0a-4595-ab5b-97cd942c4a49"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "aca07455-d04c-4162-84c5-de0e94e36ee9",
+              "name": "providerName",
+              "value": "={{ $json.body.providerName }}",
+              "type": "string"
+            },
+            {
+              "id": "7827c9f2-98b9-4b9c-936c-c472e5fa120d",
+              "name": "providerID",
+              "value": "={{ $json.body.providerID }}",
+              "type": "string"
+            },
+            {
+              "id": "249c0d1d-5dfa-430b-ae25-80890f621ae1",
+              "name": "location",
+              "value": "={{ $json.body.location }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -520,
+        -480
+      ],
+      "id": "919f72cd-1218-488a-bc8b-84adb0d1cce4",
+      "name": "Edit Fields8"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"pdfURL\": \"https://propertycom.blob.core.windows.net/web/certs/{{ $('PDFKit').item.binary.pdfData.fileName }}\",\n  \"webURL\": \"https://propertycom.blob.core.windows.net/web/certs/cert-{{ $('PDFKit').item.json.providerID }}-web.jpg\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1160,
+        -620
+      ],
+      "id": "78743942-62a3-4a1b-81b9-2a223364321a",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "outputKey": "pdfData",
+        "pdfName": "=cert-{{ $('Edit Fields4').item.json.providerID  }}",
+        "keepImages": true
+      },
+      "type": "n8n-nodes-pdfkit.pdfKit",
+      "typeVersion": 1,
+      "position": [
+        640,
+        -620
+      ],
+      "id": "4f2d225f-95d5-45f4-a122-563c65c6fab5",
+      "name": "PDFKit"
+    },
+    {
+      "parameters": {
+        "resource": "blob",
+        "operation": "upload",
+        "container": "web",
+        "blobName": "=certs{{ $json.const.ENVIRONMENT_SUFFIX }}/{{ $('PDFKit').item.binary.pdfData.fileName }}",
+        "binaryPropertyName": "pdfData"
+      },
+      "type": "n8n-nodes-azure-blob-storage2.azureBlobStorage",
+      "typeVersion": 1,
+      "position": [
+        880,
+        -620
+      ],
+      "id": "7d1db4ee-fce7-4c0b-af24-b45bac79041a",
+      "name": "Azure Blob Storage",
+      "credentials": {
+        "azureStorageApi": {
+          "id": "2TeGDEIe3jR6PiQg",
+          "name": "Azure Blob Storage 2 account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "resize",
+        "width": 850,
+        "height": 657,
+        "options": {
+          "fileName": "=cert- {{ $('Edit Fields4').item.json.providerID }}-web.jpg",
+          "format": "jpeg",
+          "quality": 96
+        }
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        700,
+        220
+      ],
+      "id": "7782f942-d5b3-4fd8-a792-53c1af755892",
+      "name": "Edit Image (web)"
+    },
+    {
+      "parameters": {
+        "operation": "resize",
+        "width": 2021,
+        "height": 1563,
+        "options": {
+          "fileName": "=cert- {{ $('Edit Fields4').item.json.providerID }}-medium.jpg",
+          "format": "jpeg",
+          "quality": 96
+        }
+      },
+      "type": "n8n-nodes-base.editImage",
+      "typeVersion": 1,
+      "position": [
+        700,
+        0
+      ],
+      "id": "924223c2-95a8-47d5-8dc5-da77b4a59b9a",
+      "name": "Edit Image (med)"
+    },
+    {
+      "parameters": {
+        "resource": "blob",
+        "operation": "upload",
+        "container": "web",
+        "blobName": "=certs{{ $('Global Constants').item.json.const.ENVIRONMENT_SUFFIX }}/{{ $binary.data.fileName }}"
+      },
+      "type": "n8n-nodes-azure-blob-storage2.azureBlobStorage",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -220
+      ],
+      "id": "e4901790-8bee-43f9-8a1a-df0256febfea",
+      "name": "Azure Blob Storage (full)",
+      "credentials": {
+        "azureStorageApi": {
+          "id": "2TeGDEIe3jR6PiQg",
+          "name": "Azure Blob Storage 2 account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "blob",
+        "operation": "upload",
+        "container": "web",
+        "blobName": "=certs{{ $('Global Constants').item.json.const.ENVIRONMENT_SUFFIX }}/cert-{{ $('Edit Fields4').item.json.providerID  }}-web.jpg"
+      },
+      "type": "n8n-nodes-azure-blob-storage2.azureBlobStorage",
+      "typeVersion": 1,
+      "position": [
+        940,
+        220
+      ],
+      "id": "010a1f2f-2dcf-4e3b-8f9b-5c6ae3196bb4",
+      "name": "Azure Blob Storage (med)",
+      "credentials": {
+        "azureStorageApi": {
+          "id": "2TeGDEIe3jR6PiQg",
+          "name": "Azure Blob Storage 2 account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "blob",
+        "operation": "upload",
+        "container": "web",
+        "blobName": "=certs{{ $('Global Constants').item.json.const.ENVIRONMENT_SUFFIX }}/cert-{{ $('Edit Fields4').item.json.providerID  }}-medium.jpg"
+      },
+      "type": "n8n-nodes-azure-blob-storage2.azureBlobStorage",
+      "typeVersion": 1,
+      "position": [
+        940,
+        0
+      ],
+      "id": "f2c7284c-a05e-4d2b-a329-80d504b94429",
+      "name": "Azure Blob Storage (web)",
+      "credentials": {
+        "azureStorageApi": {
+          "id": "2TeGDEIe3jR6PiQg",
+          "name": "Azure Blob Storage 2 account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "multiStep",
+        "operations": {
+          "operations": [
+            {
+              "operation": "text",
+              "text": "={{ $('Edit Fields4').item.json.providerName }}",
+              "fontSize": 275,
+              "positionX": 0,
+              "positionY": 2400,
+              "width": 6063,
+              "height": 4686,
+              "gravity": "North",
+              "font": "/usr/share/fonts/truetype/host/Figtree/static/Figtree-Bold.ttf"
+            },
+            {
+              "operation": "text",
+              "text": "={{ $('Edit Fields4').item.json.location }}",
+              "fontSize": 175,
+              "positionX": 0,
+              "positionY": 2650,
+              "width": 6063,
+              "height": 4686,
+              "gravity": "North",
+              "font": "/usr/share/fonts/truetype/host/Figtree/static/Figtree-Regular.ttf"
+            },
+            {
+              "operation": "text",
+              "text": "December 31, 2025",
+              "fontSize": 85,
+              "positionX": 1500,
+              "positionY": 3750,
+              "width": 4000,
+              "height": 4000,
+              "gravity": "NorthWest",
+              "font": "/usr/share/fonts/truetype/host/Figtree/static/Figtree-Regular.ttf"
+            }
+          ]
+        },
+        "options": {
+          "fileName": "=cert-{{ $('Edit Fields4').item.json.providerID }}.jpg",
+          "format": "jpeg",
+          "quality": 96
+        }
+      },
+      "type": "n8n-nodes-edit-image-plus.editImagePlus",
+      "typeVersion": 1,
+      "position": [
+        320,
+        -340
+      ],
+      "id": "ae6e16d4-eea7-45ce-aa5b-30ca0391e6fa",
+      "name": "Edit Image+ (add text)"
+    },
+    {
+      "parameters": {
+        "url": "=https://propertycom.blob.core.windows.net/web/certs{{ $json.const.ENVIRONMENT_SUFFIX }}/cert-template.jpg",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        80,
+        -340
+      ],
+      "id": "303a21cb-c333-446c-8b91-1d4e1f100385",
+      "name": "HTTP Request (get cert template)"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "providerID"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        -540,
+        80
+      ],
+      "id": "0c375af4-1988-43ac-885b-15e1901d9ea2",
+      "name": "Crypto"
+    },
+    {
+      "parameters": {
+        "constantsKeyName": "const"
+      },
+      "type": "n8n-nodes-globals.globalConstants",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -340
+      ],
+      "id": "6e8c89d8-cc39-454b-9b8a-063e3891b602",
+      "name": "Global Constants",
+      "credentials": {
+        "globalConstantsApi": {
+          "id": "vIUTwCb1Kva2Iq7e",
+          "name": "Global Constants account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.property.com",
+            "x-real-ip": "13.93.203.72",
+            "x-forwarded-for": "13.93.203.72",
+            "x-forwarded-proto": "https",
+            "connection": "upgrade",
+            "content-length": "100",
+            "accept-language": "en-US",
+            "user-agent": "azure-logic-apps/1.0 (workflow fcd1812d267848fcb9ab254240f11825; version 08584617960104090503) microsoft-flow/1.0",
+            "x-ms-workflow-id": "fcd1812d267848fcb9ab254240f11825",
+            "x-ms-workflow-version": "08584617960104090503",
+            "x-ms-workflow-name": "bb492953-adb0-5f50-515f-dbecf1e7e90b",
+            "x-ms-workflow-system-id": "/locations/westus/scaleunits/prod-121/workflows/fcd1812d267848fcb9ab254240f11825",
+            "x-ms-workflow-run-id": "08584617959980465955578663319CU177",
+            "x-ms-workflow-run-tracking-id": "1328cd48-92ee-4afb-937f-0316214a7155",
+            "x-ms-workflow-operation-name": "HTTP",
+            "x-ms-execution-location": "westus",
+            "x-ms-workflow-subscription-id": "e0a99fd2-a294-4042-b91b-22cb46bf3181",
+            "x-ms-workflow-resourcegroup-name": "AE5AF56A58364B26A92F0DE10D24BF67-944E671D3B14E183BACC814FEB006A01-ENV",
+            "x-ms-tracking-id": "4c3f899c-cba1-4511-b7bd-dcb8c17a01ba",
+            "x-ms-correlation-id": "4c3f899c-cba1-4511-b7bd-dcb8c17a01ba",
+            "x-ms-client-request-id": "4c3f899c-cba1-4511-b7bd-dcb8c17a01ba",
+            "x-ms-client-tracking-id": "08584617959980465955578663319CU177",
+            "x-ms-action-tracking-id": "1d3acb68-1124-4752-a2e4-01942f1a8ea3",
+            "x-ms-activity-vector": "IN.0E",
+            "accept-encoding": "gzip, deflate",
+            "content-type": "application/json; charset=utf-8"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "providerName": "GOTEST1115",
+            "providerID": "58028611-b5a3-ef11-8a69-000d3a157681",
+            "location": "Miami"
+          },
+          "webhookUrl": "https://n8n.property.com/webhook/cert",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Global Constants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields7": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields8": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PDFKit": {
+      "main": [
+        [
+          {
+            "node": "Azure Blob Storage",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Microsoft Outlook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure Blob Storage": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Microsoft Outlook": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Image (web)": {
+      "main": [
+        [
+          {
+            "node": "Azure Blob Storage (med)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Image (med)": {
+      "main": [
+        [
+          {
+            "node": "Azure Blob Storage (web)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure Blob Storage (full)": {
+      "main": [
+        []
+      ]
+    },
+    "Azure Blob Storage (web)": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Image+ (add text)": {
+      "main": [
+        [
+          {
+            "node": "Azure Blob Storage (full)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "PDFKit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Image (med)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Edit Image (web)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (get cert template)": {
+      "main": [
+        [
+          {
+            "node": "Edit Image+ (add text)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Azure Blob Storage (med)": {
+      "main": [
+        []
+      ]
+    },
+    "Global Constants": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request (get cert template)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5b3458af-f46c-4016-938c-2cfb1d1c165b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+  },
+  "id": "D3J2IaX6zV0inHa5",
+  "tags": []
+}

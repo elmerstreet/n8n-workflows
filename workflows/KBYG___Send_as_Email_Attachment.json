@@ -1,0 +1,275 @@
+{
+  "name": "KBYG - Send as Email Attachment",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        160
+      ],
+      "id": "cef2e431-43df-46fd-aeca-46a88c60ed83",
+      "name": "When clicking ‘Test workflow’",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "resource": "Browser Rest Apis",
+        "operation": "Pdf",
+        "url": "={{ $json.constants.PROVIDER_PORTAL_ROOT_URL }}/public/Know-Before-You-Go-Report/?id={{ $json.leadID }}",
+        "waitForSelector": {
+          "items": {
+            "selector": "#kbyg-lead-detail-need"
+          }
+        },
+        "options": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-browserless.browserless",
+      "typeVersion": 2,
+      "position": [
+        520,
+        -20
+      ],
+      "id": "f48d514a-94cd-4281-a567-5ad44a510e36",
+      "name": "Browserless",
+      "credentials": {
+        "browserlessApi": {
+          "id": "e2uytzsnIFTZhFHO",
+          "name": "Browserless Credentials account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toRecipients": "={{ $('Edit Fields').item.json.email }}",
+        "subject": "Test PDF",
+        "bodyContent": "Here's that PDF.",
+        "additionalFields": {
+          "attachments": {
+            "attachments": [
+              {
+                "binaryPropertyName": "data"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.microsoftOutlook",
+      "typeVersion": 2,
+      "position": [
+        960,
+        -20
+      ],
+      "id": "dbed4cbc-9421-4f86-8aef-05712e5b5b98",
+      "name": "Microsoft Outlook",
+      "webhookId": "8f7d0bb1-7030-4ec8-82c0-466e70e76c11",
+      "credentials": {
+        "microsoftOutlookOAuth2Api": {
+          "id": "yWrSHIipkX77QiFW",
+          "name": "Microsoft Outlook account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n$input.first().binary.data.fileName = \"thing.pdf\";\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        740,
+        -20
+      ],
+      "id": "c8a63fa4-d501-4bf7-b8e5-ffef8d4cf56b",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "kbyg/email",
+        "options": {
+          "rawBody": false
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        -80
+      ],
+      "id": "9c39b13b-e4ea-42c0-97be-5d1ab34623c1",
+      "name": "Webhook",
+      "webhookId": "67ddbada-5ebf-411c-9247-5cfd53dfb293"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-globals.globalConstants",
+      "typeVersion": 1,
+      "position": [
+        300,
+        -20
+      ],
+      "id": "9f995867-c6aa-40ec-87f8-fb406d096cf2",
+      "name": "Global Constants",
+      "credentials": {
+        "globalConstantsApi": {
+          "id": "vIUTwCb1Kva2Iq7e",
+          "name": "Global Constants account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8d7c8e1c-70ff-462c-bda8-fbfdaf03a604",
+              "name": "leadID",
+              "value": "={{ $json.body.leadID }}",
+              "type": "string"
+            },
+            {
+              "id": "84081789-ea51-486e-8221-f54f54ac0900",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        80,
+        -20
+      ],
+      "id": "d49f8a04-cc22-47ee-b65e-45280689f6bb",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {
+    "When clicking ‘Test workflow’": [
+      {
+        "json": {}
+      }
+    ],
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.property.com",
+            "x-real-ip": "72.222.232.219",
+            "x-forwarded-for": "72.222.232.219",
+            "x-forwarded-proto": "https",
+            "connection": "upgrade",
+            "content-length": "68",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+            "accept": "application/json, text/javascript, */*; q=0.01",
+            "sec-ch-ua": "\"Not A(Brand\";v=\"8\", \"Chromium\";v=\"132\", \"Google Chrome\";v=\"132\"",
+            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "sec-ch-ua-mobile": "?0",
+            "origin": "https://contractor-dev.powerappsportals.com",
+            "sec-fetch-site": "cross-site",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-dest": "empty",
+            "referer": "https://contractor-dev.powerappsportals.com/",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "en-US,en;q=0.9"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "email": "me@mackemlad.com",
+            "leadID": "c7407f60-49cd-ef11-b8e8-7c1e521b701a"
+          },
+          "webhookUrl": "https://n8n.property.com/webhook/67ddbada-5ebf-411c-9247-5cfd53dfb293",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Browserless": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Microsoft Outlook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Global Constants": {
+      "main": [
+        [
+          {
+            "node": "Browserless",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Global Constants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1b0434e3-ccb1-420d-868b-10b89b343479",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+  },
+  "id": "j1OL4zyPuYdlVHLe",
+  "tags": [
+    {
+      "createdAt": "2025-02-14T16:59:23.645Z",
+      "updatedAt": "2025-02-14T16:59:23.645Z",
+      "id": "TLVbfDsxIQZZwklk",
+      "name": "KBYG"
+    }
+  ]
+}

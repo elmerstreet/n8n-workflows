@@ -6,11 +6,11 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -320,
-        160
+        -80,
+        240
       ],
-      "id": "cef2e431-43df-46fd-aeca-46a88c60ed83",
-      "name": "When clicking ‘Test workflow’",
+      "id": "1b98e17f-4be1-4fc4-9534-854349c27591",
+      "name": "When clicking â€˜Test workflowâ€™",
       "disabled": true
     },
     {
@@ -29,14 +29,14 @@
       "type": "n8n-nodes-browserless.browserless",
       "typeVersion": 2,
       "position": [
-        520,
-        -20
+        760,
+        60
       ],
-      "id": "f48d514a-94cd-4281-a567-5ad44a510e36",
+      "id": "b0af5a33-c61f-4b48-9d31-7f7a708dac15",
       "name": "Browserless",
       "credentials": {
         "browserlessApi": {
-          "id": "e2uytzsnIFTZhFHO",
+          "id": "PVUY5o4IkPy3suAD",
           "name": "Browserless Credentials account"
         }
       }
@@ -44,8 +44,8 @@
     {
       "parameters": {
         "toRecipients": "={{ $('Edit Fields').item.json.email }}",
-        "subject": "Test PDF",
-        "bodyContent": "Here's that PDF.",
+        "subject": "Know Before You Go Report",
+        "bodyContent": "=Attached is a PDF copy of the <a href=\"{{ $('Global Constants').item.json.constants.PROVIDER_PORTAL_ROOT_URL }}/Public/Know-Before-You-Go-Report?id={{ $('Global Constants').item.json.leadID }}\">Know Before You Go report</a> that you requested.\n\nKind regards,\nProperty.com",
         "additionalFields": {
           "attachments": {
             "attachments": [
@@ -53,36 +53,37 @@
                 "binaryPropertyName": "data"
               }
             ]
-          }
+          },
+          "bodyContentType": "html"
         }
       },
       "type": "n8n-nodes-base.microsoftOutlook",
       "typeVersion": 2,
       "position": [
-        960,
-        -20
+        1200,
+        60
       ],
-      "id": "dbed4cbc-9421-4f86-8aef-05712e5b5b98",
+      "id": "a7a6d3c9-cb81-4e3f-a9c6-1861ff8320fb",
       "name": "Microsoft Outlook",
       "webhookId": "8f7d0bb1-7030-4ec8-82c0-466e70e76c11",
       "credentials": {
         "microsoftOutlookOAuth2Api": {
-          "id": "yWrSHIipkX77QiFW",
+          "id": "g2b5nz35NPwE3Jj3",
           "name": "Microsoft Outlook account"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n$input.first().binary.data.fileName = \"thing.pdf\";\nreturn $input.all();"
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\n$input.first().binary.data.fileName = \"KBYG_Report_\" + $('Edit Fields').first().json.leadID + \".pdf\";\nreturn $input.all();"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        740,
-        -20
+        980,
+        60
       ],
-      "id": "c8a63fa4-d501-4bf7-b8e5-ffef8d4cf56b",
+      "id": "9bab2872-57d8-4474-b1cb-3146ea74f16a",
       "name": "Code"
     },
     {
@@ -96,10 +97,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -240,
-        -80
+        0,
+        0
       ],
-      "id": "9c39b13b-e4ea-42c0-97be-5d1ab34623c1",
+      "id": "0ca5c533-55a2-4915-982d-7a9ffc5c5f72",
       "name": "Webhook",
       "webhookId": "67ddbada-5ebf-411c-9247-5cfd53dfb293"
     },
@@ -108,14 +109,14 @@
       "type": "n8n-nodes-globals.globalConstants",
       "typeVersion": 1,
       "position": [
-        300,
-        -20
+        540,
+        60
       ],
-      "id": "9f995867-c6aa-40ec-87f8-fb406d096cf2",
+      "id": "8b61955d-14bb-4e88-951b-a14772b4137d",
       "name": "Global Constants",
       "credentials": {
         "globalConstantsApi": {
-          "id": "vIUTwCb1Kva2Iq7e",
+          "id": "XkalIPUhZuA2wvhN",
           "name": "Global Constants account"
         }
       }
@@ -143,15 +144,15 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        80,
-        -20
+        320,
+        60
       ],
-      "id": "d49f8a04-cc22-47ee-b65e-45280689f6bb",
+      "id": "24d0a523-2597-4c4d-a420-e573fe35c91d",
       "name": "Edit Fields"
     }
   ],
   "pinData": {
-    "When clicking ‘Test workflow’": [
+    "When clicking â€˜Test workflowâ€™": [
       {
         "json": {}
       }
@@ -160,44 +161,39 @@
       {
         "json": {
           "headers": {
-            "host": "n8n.property.com",
+            "host": "n8n-prod.property.com",
             "x-real-ip": "72.222.232.219",
             "x-forwarded-for": "72.222.232.219",
             "x-forwarded-proto": "https",
             "connection": "upgrade",
-            "content-length": "68",
+            "content-length": "69",
             "sec-ch-ua-platform": "\"Windows\"",
-            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/132.0.0.0 Safari/537.36",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
             "accept": "application/json, text/javascript, */*; q=0.01",
-            "sec-ch-ua": "\"Not A(Brand\";v=\"8\", \"Chromium\";v=\"132\", \"Google Chrome\";v=\"132\"",
+            "sec-ch-ua": "\"Not(A:Brand\";v=\"99\", \"Google Chrome\";v=\"133\", \"Chromium\";v=\"133\"",
             "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
             "sec-ch-ua-mobile": "?0",
-            "origin": "https://contractor-dev.powerappsportals.com",
-            "sec-fetch-site": "cross-site",
+            "origin": "https://contractor.property.com",
+            "sec-fetch-site": "same-site",
             "sec-fetch-mode": "cors",
             "sec-fetch-dest": "empty",
-            "referer": "https://contractor-dev.powerappsportals.com/",
+            "referer": "https://contractor.property.com/",
             "accept-encoding": "gzip, deflate, br, zstd",
             "accept-language": "en-US,en;q=0.9"
           },
           "params": {},
           "query": {},
           "body": {
-            "email": "me@mackemlad.com",
-            "leadID": "c7407f60-49cd-ef11-b8e8-7c1e521b701a"
+            "email": "gary@property.com",
+            "leadID": "E2F6B447-EEE7-EF11-B541-7C1E52D95E70"
           },
-          "webhookUrl": "https://n8n.property.com/webhook/67ddbada-5ebf-411c-9247-5cfd53dfb293",
+          "webhookUrl": "https://n8n-prod.property.com/webhook/kbyg/email",
           "executionMode": "production"
         }
       }
     ]
   },
   "connections": {
-    "When clicking ‘Test workflow’": {
-      "main": [
-        []
-      ]
-    },
     "Browserless": {
       "main": [
         [
@@ -258,17 +254,17 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "1b0434e3-ccb1-420d-868b-10b89b343479",
+  "versionId": "42b36656-7b84-4cb0-b46c-aa04b0f11b76",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+    "instanceId": "86d5ee5e165dc6e8f9ad7adc81ef52feff96b00a66cb631ede0c9e502f9ab412"
   },
-  "id": "j1OL4zyPuYdlVHLe",
+  "id": "fCVKqOHdL7bzPz5A",
   "tags": [
     {
-      "createdAt": "2025-02-14T16:59:23.645Z",
-      "updatedAt": "2025-02-14T16:59:23.645Z",
-      "id": "TLVbfDsxIQZZwklk",
+      "createdAt": "2025-02-27T18:41:57.547Z",
+      "updatedAt": "2025-02-27T18:41:57.547Z",
+      "id": "5baJZlFsVCeJfHye",
       "name": "KBYG"
     }
   ]

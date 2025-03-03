@@ -45,7 +45,7 @@
       "parameters": {
         "toRecipients": "={{ $('Edit Fields').item.json.email }}",
         "subject": "Know Before You Go Report",
-        "bodyContent": "=Attached is a PDF copy of the <a href=\"{{ $('Global Constants').item.json.constants.PROVIDER_PORTAL_ROOT_URL }}/Public/Know-Before-You-Go-Report?id={{ $('Global Constants').item.json.leadID }}\">Know Before You Go report</a> that you requested.\n\nKind regards,\nProperty.com",
+        "bodyContent": "=Attached is a PDF copy of the <a href=\"{{ $('Global Constants').item.json.constants.PROVIDER_PORTAL_ROOT_URL }}/Public/Know-Before-You-Go-Report?id={{ $('Global Constants').item.json.leadID }}\">Know Before You Go report</a> that you requested.<br>\n<br>\nKind regards,<br>\nProperty.com",
         "additionalFields": {
           "attachments": {
             "attachments": [

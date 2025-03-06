@@ -527,7 +527,7 @@
       "parameters": {
         "toolDescription": "Create a lead based on the address and product needed.  When booking an appointment, create a lead if you haven't already done so.",
         "method": "POST",
-        "url": "=https://n8n-{{ $('Global Constants').item.json.constants.ENVIRONMENT_SUFFIX }}.property.com/webhook/create-lead",
+        "url": "=https://n8n{{ $('Global Constants').item.json.constants.ENVIRONMENT_SUFFIX }}.property.com/webhook/create-lead",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"foon\" : \"{type_of_service}\",\n  \"pcom_providertype\" : \"434940000\",\n  \"pcom_contactstreet1\": \"{service_address_street}\",\n  \"pcom_contactpostalcode\": \"{service_address_postalcode}\",\n  \"pcom_source\": \"SMS\",\n  \"pcom_needlevel\": \"434940001\",\n  \"pcom_attomid\": \"\",\n  \"pcom_name\": \"New Lead\",\n  \"pcom_receivedon\": \"{now}\",\n  \"pcom_serviceproviderid\": \"{provider_id}\"\n}",

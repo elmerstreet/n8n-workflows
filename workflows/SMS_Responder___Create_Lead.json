@@ -1,0 +1,117 @@
+{
+  "name": "SMS Responder - Create Lead",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://prod-100.westus.logic.azure.com/workflows/02540a5a1c0b4d35bc8bd4dd26cf491e/triggers/manual/paths/invoke/lead?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=5cPfIq_12kQZ-dzSfR1_9UDmadNzoig1iKnlD-vB6G8",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"pcom_providertype\" : \"{{ $json.body.pcom_providertype }}\",\n  \"pcom_contactstreet1\": \"{{ $json.body.pcom_contactstreet1 }}\",\n  \"pcom_contactpostalcode\": \"{{ $json.body.pcom_contactpostalcode }}\",\n  \"pcom_source\": \"SMS\",\n  \"pcom_needlevel\": \"434940001\",\n  \"pcom_attomid\": null,\n  \"pcom_name\": \"New Lead\", \n  \"pcom_receivedon\": \"{{ $json.body.pcom_receivedon }}\",\n  \"pcom_serviceproviderid\": \"{{ $json.body.pcom_serviceproviderid }}\"\n}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        340
+      ],
+      "id": "712a13e3-c16a-4924-befa-9b67aefda59c",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "create-lead",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        340
+      ],
+      "id": "7504bcbe-8437-4f6d-add5-7625e99fbe7f",
+      "name": "Webhook",
+      "webhookId": "24a4436b-1ade-4d0f-beec-e5a481ebc6f4"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n-prod.property.com/webhook/kbyg/email",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "email",
+              "value": "gary@property.com"
+            },
+            {
+              "name": "leadID",
+              "value": "={{ $json.lead.pcom_accountleadid }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        340
+      ],
+      "id": "b805688f-f652-4969-92a6-eafdb39437db",
+      "name": "HTTP Request1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "abeff7c3-d595-48ba-a02b-3622f7961fde",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+  },
+  "id": "rubDxAGF0CDtQTJW",
+  "tags": [
+    {
+      "createdAt": "2025-03-05T17:09:03.666Z",
+      "updatedAt": "2025-03-05T17:09:03.666Z",
+      "id": "HN3IibgUw3BIOuEX",
+      "name": "POC"
+    }
+  ]
+}

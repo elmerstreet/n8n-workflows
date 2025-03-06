@@ -1,0 +1,818 @@
+{
+  "name": "SMS Responder - Totally Cool VAC",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "com.twilio.messaging.inbound-message.received"
+        ]
+      },
+      "type": "n8n-nodes-base.twilioTrigger",
+      "typeVersion": 1,
+      "position": [
+        -540,
+        -80
+      ],
+      "id": "bcb5877b-eb4c-4b6e-9964-148f951505e2",
+      "name": "Twilio Trigger",
+      "webhookId": "8d143763-1567-4f78-96f9-82d6f8301a9b",
+      "credentials": {
+        "twilioApi": {
+          "id": "K9A1xsATyDxPP7DE",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "from": "={{ $('Twilio Trigger').item.json.data.to }}",
+        "to": "={{ $('Twilio Trigger').item.json.data.from }}",
+        "message": "={{ $json.output }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        -20
+      ],
+      "id": "ed51b978-0813-42b4-9fde-e9d08e71bb69",
+      "name": "Twilio",
+      "credentials": {
+        "twilioApi": {
+          "id": "K9A1xsATyDxPP7DE",
+          "name": "Twilio account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=Your name is Revana.  You are a helpful contractor that specializes in HVAC installation, maintenance and repair.  Make your answers brief and purely textual.  Do not use any kind of markup.\n\nAsk the user questions, one at a time, to understand the problem they are having and try to offer some suggestions to troubleshoot their issue.  When you or thinks they should book an appointment with a professional, you are that professional.  You may suggest some dates and times in the MST timezone, starting with the soonest available.  Number the suggestions.\n\nToday is {{ $('Edit Fields').item.json.now }}\nProvider ID is {{ $('Edit Fields').item.json.providerId }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        660,
+        60
+      ],
+      "id": "e6f3b739-feab-488a-b75d-6b88debe1c7c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        580,
+        300
+      ],
+      "id": "b8add115-ab70-4d85-a4ac-927caaf467de",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "gsKddIL1GgHH348U",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        720,
+        260
+      ],
+      "id": "b3a93f44-e026-45cb-a7e6-025beae8c3e7",
+      "name": "Window Buffer Memory"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bb9845b2-3af0-4943-a15f-b7a52145d23d",
+              "name": "sessionId",
+              "value": "={{ $json.data.from }}",
+              "type": "string"
+            },
+            {
+              "id": "c43e5a96-ca5b-4b3d-b0b9-1a17256d3719",
+              "name": "chatInput",
+              "value": "={{ $json.data.body }}",
+              "type": "string"
+            },
+            {
+              "id": "5630f842-cd4f-46c0-9d8f-c378671f04a9",
+              "name": "now",
+              "value": "={{ new Date() }}",
+              "type": "string"
+            },
+            {
+              "id": "5d09832d-ecc5-4ac8-952c-dae90313eff9",
+              "name": "providerId",
+              "value": "94242df8-12a5-ef11-8a69-7c1e52493187",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -80
+      ],
+      "id": "e20cecbd-52cc-489f-9c78-4edb3969d8e7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Returns a list of contractors that will service a specific ZIP code.",
+        "url": "https://prod-26.westus.logic.azure.com/workflows/9aaf160de7794f35a20c56c42caba55d/triggers/manual/paths/invoke/recommendation/contractor/HVAC/33173?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=3NMClW8SmaW9L2TpyHQrAQj_9Fs4mME51JU7721Uni0&"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        920,
+        620
+      ],
+      "id": "07fc838e-ec5b-4a96-aa8b-937deeeb5073",
+      "name": "HTTP Request",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "content": "There is an issue calling the Provider API as an HTTP tool.  Works fine from HTTP Node, so moved that to a separate workflow which we call instead.  Research further.",
+        "height": 140
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        800,
+        600
+      ],
+      "id": "ed45b962-a79d-4a4d-a507-63570f3478ed",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "mode": "delete",
+        "deleteMode": "all"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryManager",
+      "typeVersion": 1.1,
+      "position": [
+        520,
+        -160
+      ],
+      "id": "ac023c41-69e6-4507-a680-e8f361b149de",
+      "name": "Chat Memory Manager"
+    },
+    {
+      "parameters": {
+        "url": "https://api.cal.com/v2/slots",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "start",
+              "value": "2024-03-15"
+            },
+            {
+              "name": "end",
+              "value": "2025-03-20"
+            },
+            {
+              "name": "eventTypeId",
+              "value": "1991788"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " cal-api-version",
+              "value": "2024-09-04"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -700,
+        440
+      ],
+      "id": "feea164d-16bc-44e3-bd60-a4a35a222295",
+      "name": "HTTP Request (Get Available Slots)",
+      "credentials": {
+        "calApi": {
+          "id": "Ee5Ue2suZwExF0nO",
+          "name": "Cal account"
+        },
+        "httpHeaderAuth": {
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.cal.com/v2/event-types",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "username",
+              "value": "totallycoolhvac"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "cal-api-version",
+              "value": "2024-06-14"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -360,
+        580
+      ],
+      "id": "22110ef6-57ec-41be-ac77-92f0e2e5d714",
+      "name": "HTTP Request (Get Event Types)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "Recommend_Contractors",
+        "description": "Returns a list of contractors that will service a specific ZIP code.",
+        "workflowId": {
+          "__rl": true,
+          "value": "VfqOK6Znc5Si8Z6n",
+          "mode": "list",
+          "cachedResultName": "SMS Responder - Recommend Contractors"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "zip": "1234",
+            "product": "12334"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "zip",
+              "displayName": "zip",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "product",
+              "displayName": "product",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        800,
+        480
+      ],
+      "id": "195ef09f-2668-4092-a978-850bab7744b5",
+      "name": "Call (Recommend a Contractor)",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "toolDescription": "Book an appointment at an agreed date and time to occur at a specified location.",
+        "method": "POST",
+        "url": "https://api.cal.com/v2/bookings",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": " cal-api-version",
+              "valueProvider": "fieldValue",
+              "value": "2024-08-13"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"eventTypeId\" : 1991788,\n  \"start\" : \"{start_date_time}\",\n  \"location\" : \"{appointment_address}\",\n  \"attendee\" : {\n    \"name\" : \"Fred O'Tester\",\n    \"timeZone\" : \"America/Phoenix\",\n    \"email\" : \"fredotester@mackemlad.com\",\n    \"phoneNumber\" : \"{{ $json.sessionId }}\"\n  },\n  \"metadata\" : {\n    \"product\" : \"{type_of_service}\"\n  }\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "start_date_time",
+              "description": "Date and time that the appointment should start in UTC timezone",
+              "type": "string"
+            },
+            {
+              "name": "appointment_address",
+              "description": "Address at which the appointment will take place",
+              "type": "string"
+            },
+            {
+              "name": "type_of_service",
+              "description": "The type of service required; one of: HVAC, Plumbing, Roofing, Flooring",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        1320,
+        240
+      ],
+      "id": "5fd96b5a-3790-42b7-9884-9c5a45cc9366",
+      "name": "Book Appointment",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Find available dates and times to book an appointment.",
+        "url": "https://api.cal.com/v2/slots",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "parametersQuery": {
+          "values": [
+            {
+              "name": "start"
+            },
+            {
+              "name": "end"
+            },
+            {
+              "name": "eventTypeId",
+              "valueProvider": "fieldValue",
+              "value": "1991788"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "parametersHeaders": {
+          "values": [
+            {
+              "name": " cal-api-version",
+              "valueProvider": "fieldValue",
+              "value": "2024-09-04"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        1160,
+        280
+      ],
+      "id": "265a5f9b-108e-4138-b47d-343abefa470e",
+      "name": "Check Availability",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cal.com/v2/bookings",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " cal-api-version",
+              "value": "2024-08-13"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"eventTypeId\" : 1991788,\n  \"start\" : \"2025-03-30T09:00:00Z\",\n  \"attendee\" : {\n    \"name\" : \"Fred O'Tester\",\n    \"timeZone\" : \"America/Phoenix\",\n    \"email\" : \"fredotester@mackemlad.com\",\n    \"phoneNumber\" : \"+18043248290\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -640,
+        640
+      ],
+      "id": "1bf174fd-449d-48b5-86cc-1efcf0cde277",
+      "name": "HTTP Request (Book Appointment)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "NEW",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        260,
+        -80
+      ],
+      "id": "36e0f3a4-eb96-4fea-b162-472c39b91f17",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a7bf304f-2d42-434e-ab04-3b4348d846ad",
+              "name": "output",
+              "value": "How can I help?",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        880,
+        -160
+      ],
+      "id": "f1b46c56-3ae9-44a3-aec3-68e72ce28535",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Create a lead based on the address and product needed.  When booking an appointment, create a lead if you haven't already done so.",
+        "method": "POST",
+        "url": "https://n8n-dev.property.com/webhook/create-lead",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"foon\" : \"{type_of_service}\",\n  \"pcom_providertype\" : \"434940000\",\n  \"pcom_contactstreet1\": \"{service_address_street}\",\n  \"pcom_contactpostalcode\": \"{service_address_postalcode}\",\n  \"pcom_source\": \"SMS\",\n  \"pcom_needlevel\": \"434940001\",\n  \"pcom_attomid\": \"\",\n  \"pcom_name\": \"New Lead\",\n  \"pcom_receivedon\": \"{now}\",\n  \"pcom_serviceproviderid\": \"{provider_id}\"\n}",
+        "placeholderDefinitions": {
+          "values": [
+            {
+              "name": "type_of_service",
+              "description": "Type of service the customer needs; one of: HVAC, Plumbing, Roofing",
+              "type": "string"
+            },
+            {
+              "name": "service_address_street",
+              "description": "The street component of the address for which the customer is seeking assistance",
+              "type": "string"
+            },
+            {
+              "name": "now",
+              "description": "Current date and time.",
+              "type": "string"
+            },
+            {
+              "name": "provider_id",
+              "description": "The ID of the service provider",
+              "type": "string"
+            },
+            {
+              "name": "service_address_postalcode",
+              "description": "The postal (ZIP) code of the address for which the customer is seeking assistance.",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        1020,
+        340
+      ],
+      "id": "16b55304-022d-4556-bbbd-11257250b68e",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "url": "https://api.cal.com/v2/bookings",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " cal-api-version",
+              "value": "2024-08-13"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -440,
+        400
+      ],
+      "id": "5ad8c6fb-835c-4b41-9902-dc6b877048d7",
+      "name": "HTTP Request (Get Bookings)",
+      "credentials": {
+        "calApi": {
+          "id": "Ee5Ue2suZwExF0nO",
+          "name": "Cal account"
+        },
+        "httpHeaderAuth": {
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-globals.globalConstants",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        -80
+      ],
+      "id": "dd15e7fd-c3c0-47b7-8676-b784bfe0ccb1",
+      "name": "Global Constants",
+      "credentials": {
+        "globalConstantsApi": {
+          "id": "vIUTwCb1Kva2Iq7e",
+          "name": "Global Constants account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Twilio Trigger": {
+      "main": [
+        [
+          {
+            "node": "Global Constants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          },
+          {
+            "node": "Chat Memory Manager",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Chat Memory Manager": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Call (Recommend a Contractor)": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Book Appointment": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Availability": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request (Get Available Slots)": {
+      "main": [
+        []
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Chat Memory Manager",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Global Constants": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3ca38ec5-7be4-403d-96d6-b68a8a0572ba",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+  },
+  "id": "y8AxwekfTN4QBV90",
+  "tags": [
+    {
+      "createdAt": "2025-03-05T17:09:03.666Z",
+      "updatedAt": "2025-03-05T17:09:03.666Z",
+      "id": "HN3IibgUw3BIOuEX",
+      "name": "POC"
+    }
+  ]
+}

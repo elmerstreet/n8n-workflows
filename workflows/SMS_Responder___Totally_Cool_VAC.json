@@ -145,7 +145,7 @@
       "typeVersion": 1.1,
       "position": [
         920,
-        620
+        580
       ],
       "id": "07fc838e-ec5b-4a96-aa8b-937deeeb5073",
       "name": "HTTP Request",
@@ -527,7 +527,7 @@
       "parameters": {
         "toolDescription": "Create a lead based on the address and product needed.  When booking an appointment, create a lead if you haven't already done so.",
         "method": "POST",
-        "url": "https://n8n-dev.property.com/webhook/create-lead",
+        "url": "=https://n8n-{{ $('Global Constants').item.json.constants.ENVIRONMENT_SUFFIX }}.property.com/webhook/create-lead",
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={\n  \"foon\" : \"{type_of_service}\",\n  \"pcom_providertype\" : \"434940000\",\n  \"pcom_contactstreet1\": \"{service_address_street}\",\n  \"pcom_contactpostalcode\": \"{service_address_postalcode}\",\n  \"pcom_source\": \"SMS\",\n  \"pcom_needlevel\": \"434940001\",\n  \"pcom_attomid\": \"\",\n  \"pcom_name\": \"New Lead\",\n  \"pcom_receivedon\": \"{now}\",\n  \"pcom_serviceproviderid\": \"{provider_id}\"\n}",
@@ -801,7 +801,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "3ca38ec5-7be4-403d-96d6-b68a8a0572ba",
+  "versionId": "e1117901-6de5-485f-b823-8e6c9cd597d2",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"

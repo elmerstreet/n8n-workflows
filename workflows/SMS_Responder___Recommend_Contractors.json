@@ -1,0 +1,106 @@
+{
+  "name": "SMS Responder - Recommend Contractors",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "={{ $json.constants.PROVIDER_API_RECOMMEND_CONTRACTORS }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        180
+      ],
+      "id": "57a24002-d202-40da-a679-2ad667c731f7",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "zip"
+            },
+            {
+              "name": "product"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -240,
+        180
+      ],
+      "id": "174d269b-cb86-4606-bdf8-1f874e5c3c93",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-globals.globalConstants",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        180
+      ],
+      "id": "17802cdb-a073-415b-ad53-e876f1828668",
+      "name": "Global Constants",
+      "credentials": {
+        "globalConstantsApi": {
+          "id": "vIUTwCb1Kva2Iq7e",
+          "name": "Global Constants account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "HTTP Request1": {
+      "main": [
+        []
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Global Constants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Global Constants": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7f3ebdd4-b2a1-4cf8-9512-a54b78f02102",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+  },
+  "id": "VfqOK6Znc5Si8Z6n",
+  "tags": [
+    {
+      "createdAt": "2025-03-05T17:09:03.666Z",
+      "updatedAt": "2025-03-05T17:09:03.666Z",
+      "id": "HN3IibgUw3BIOuEX",
+      "name": "POC"
+    }
+  ]
+}

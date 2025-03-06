@@ -120,7 +120,7 @@
             {
               "id": "5d09832d-ecc5-4ac8-952c-dae90313eff9",
               "name": "providerId",
-              "value": "94242df8-12a5-ef11-8a69-7c1e52493187",
+              "value": "={{ $json.constants.SMS_RESPONSE_SERVICE_PROVIDER }}",
               "type": "string"
             }
           ]
@@ -801,7 +801,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "520f9957-2af3-4892-9f7d-287bd1dff11e",
+  "versionId": "7b587f19-340f-40c9-b636-7f47f477a75f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"

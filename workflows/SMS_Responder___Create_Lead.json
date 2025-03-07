@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        200,
-        340
+        0,
+        0
       ],
-      "id": "7504bcbe-8437-4f6d-add5-7625e99fbe7f",
+      "id": "50a52a0b-ff41-4e28-ba35-d56a578c1e56",
       "name": "Webhook",
       "webhookId": "24a4436b-1ade-4d0f-beec-e5a481ebc6f4"
     },
@@ -23,14 +23,14 @@
       "type": "n8n-nodes-globals.globalConstants",
       "typeVersion": 1,
       "position": [
-        420,
-        340
+        220,
+        0
       ],
-      "id": "89219670-3c60-4d08-b228-d0b820fe67ca",
+      "id": "8acf4524-7add-48fe-b52a-e9f845b2104f",
       "name": "Global Constants",
       "credentials": {
         "globalConstantsApi": {
-          "id": "vIUTwCb1Kva2Iq7e",
+          "id": "XkalIPUhZuA2wvhN",
           "name": "Global Constants account"
         }
       }
@@ -53,10 +53,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        660,
-        340
+        460,
+        0
       ],
-      "id": "712a13e3-c16a-4924-befa-9b67aefda59c",
+      "id": "b6e2499a-4666-45d2-9053-9709f1707d30",
       "name": "HTTP Request (POST Lead)"
     },
     {
@@ -81,11 +81,79 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        880,
-        340
+        680,
+        0
       ],
-      "id": "b805688f-f652-4969-92a6-eafdb39437db",
+      "id": "d1cc9b80-afb3-4833-a7bb-db570f9ba035",
       "name": "HTTP Request (POST KBYG Email)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://n8n{{ $('Global Constants').item.json.constants.ENVIRONMENT_SUFFIX }}.property.com/webhook/memorize",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $('Webhook').item.json.body.session_id }}"
+            },
+            {
+              "name": "key",
+              "value": "ATTOM_ID"
+            },
+            {
+              "name": "value",
+              "value": "={{ $json.propertyAttributes.attom_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        680,
+        -180
+      ],
+      "id": "7dfedfb5-35ea-4399-ab28-a895e1c1ec68",
+      "name": "HTTP Request (Remember Attom ID)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://n8n-prod.property.com/webhook/MentionPropertyDetails",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "from",
+              "value": "={{ $('Webhook').item.json.body.session_id }}"
+            },
+            {
+              "name": "propertyAttributes",
+              "value": "={{ $json.propertyAttributes }}"
+            },
+            {
+              "name": "propertyPermits",
+              "value": "={{ $json.permits }}"
+            },
+            {
+              "name": "to",
+              "value": "={{ $('Webhook').item.json.body.to }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        680,
+        200
+      ],
+      "id": "3c83239a-b82b-4730-ac79-aa05b0e95ac7",
+      "name": "HTTP Request (Mention Property Details)"
     }
   ],
   "pinData": {},
@@ -119,6 +187,16 @@
             "node": "HTTP Request (POST KBYG Email)",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "HTTP Request (Remember Attom ID)",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request (Mention Property Details)",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -128,17 +206,17 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "2f161672-e2ad-4bf8-8c69-7e20800159c8",
+  "versionId": "8c726c91-9f8e-433b-9768-c524b5ded625",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+    "instanceId": "86d5ee5e165dc6e8f9ad7adc81ef52feff96b00a66cb631ede0c9e502f9ab412"
   },
-  "id": "rubDxAGF0CDtQTJW",
+  "id": "hYsecy74iha7sInu",
   "tags": [
     {
-      "createdAt": "2025-03-05T17:09:03.666Z",
-      "updatedAt": "2025-03-05T17:09:03.666Z",
-      "id": "HN3IibgUw3BIOuEX",
+      "createdAt": "2025-03-06T18:50:30.603Z",
+      "updatedAt": "2025-03-06T18:50:30.603Z",
+      "id": "hV8AD6zgRGkzRmy8",
       "name": "POC"
     }
   ]

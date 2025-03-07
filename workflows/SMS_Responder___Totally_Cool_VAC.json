@@ -10,37 +10,37 @@
       "type": "n8n-nodes-base.twilioTrigger",
       "typeVersion": 1,
       "position": [
-        -540,
-        -80
+        -1220,
+        -60
       ],
-      "id": "bcb5877b-eb4c-4b6e-9964-148f951505e2",
+      "id": "31d00543-f8a0-4442-a421-6b7fde791d64",
       "name": "Twilio Trigger",
       "webhookId": "8d143763-1567-4f78-96f9-82d6f8301a9b",
       "credentials": {
         "twilioApi": {
-          "id": "K9A1xsATyDxPP7DE",
+          "id": "an5ysIaYwHpaUSA6",
           "name": "Twilio account"
         }
       }
     },
     {
       "parameters": {
-        "from": "={{ $('Twilio Trigger').item.json.data.to }}",
-        "to": "={{ $('Twilio Trigger').item.json.data.from }}",
+        "from": "={{ $('Edit Fields').item.json.to }}",
+        "to": "={{ $('Edit Fields').item.json.sessionId }}",
         "message": "={{ $json.output }}",
         "options": {}
       },
       "type": "n8n-nodes-base.twilio",
       "typeVersion": 1,
       "position": [
-        1140,
-        -20
+        2180,
+        140
       ],
-      "id": "ed51b978-0813-42b4-9fde-e9d08e71bb69",
+      "id": "1fc69315-779c-4dd5-9f47-a887ca9f02fc",
       "name": "Twilio",
       "credentials": {
         "twilioApi": {
-          "id": "K9A1xsATyDxPP7DE",
+          "id": "an5ysIaYwHpaUSA6",
           "name": "Twilio account"
         }
       }
@@ -48,16 +48,16 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "=Your name is Revana.  You are a helpful contractor that specializes in HVAC installation, maintenance and repair.  Make your answers brief and purely textual.  Do not use any kind of markup.\n\nStart the conversation by ensuring you know the user's name.  Then verify the address they are contacting you about.  Then ask if they wish to schedule a service appointment or if they would like you to help them with an issue.\n\nAsk the user questions, one at a time, to understand the problem they are having and try to offer some suggestions to troubleshoot their issue.  When you or thinks they should book an appointment with a professional, you are that professional.  You may suggest some dates and times in the MST timezone, starting with the soonest available.  Number the suggestions.\n\nToday is {{ $('Edit Fields').item.json.now }}\nProvider ID is {{ $('Edit Fields').item.json.providerId }}"
+          "systemMessage": "=Your name is Revana.  You are a helpful contractor that specializes in HVAC installation, maintenance and repair.  Make your answers brief and purely textual.  Do not use any kind of markup.\n\nStart the conversation by showing the user their name, if you know it, and asking them for it if you do not.  Do the same for the address they are contacting you about.  The name and address are important, so ALWAYS persist them to long term storage as soon as the user gives you any of those pieces of information (but do not tell the user).  Then ask if they wish to schedule a service appointment or if they would like you to help them with an issue.\n\nOnce you know the address and the type of service contractor the user needs, create a lead (but do not tell the user).\n\nAsk the user questions, one at a time, to understand the problem they are having and try to offer some suggestions to troubleshoot their issue.  When you or thinks they should book an appointment with a professional, you are that professional.  You may suggest some dates and times in the MST timezone, starting with the soonest available.  Number the suggestions.\n\nYou have  these memories about the user:\n{{ $('Code').item.json.memories }}\n\nToday is {{ $('Edit Fields').item.json.now }}\nProvider ID is {{ $('Edit Fields').item.json.providerId }}\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        660,
-        60
+        1480,
+        220
       ],
-      "id": "e6f3b739-feab-488a-b75d-6b88debe1c7c",
+      "id": "5b8b1958-84e7-4ad0-b9cd-6cccb92cad55",
       "name": "AI Agent"
     },
     {
@@ -72,27 +72,29 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        580,
-        300
+        1320,
+        460
       ],
-      "id": "b8add115-ab70-4d85-a4ac-927caaf467de",
+      "id": "960e3338-987b-4c9d-81b0-7fafde2a7bb3",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "gsKddIL1GgHH348U",
+          "id": "Ir0YICPWlRotoiB6",
           "name": "OpenAi account"
         }
       }
     },
     {
-      "parameters": {},
+      "parameters": {
+        "contextWindowLength": 100
+      },
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        720,
-        260
+        1480,
+        460
       ],
-      "id": "b3a93f44-e026-45cb-a7e6-025beae8c3e7",
+      "id": "dbecfe6a-e545-4aee-ae64-850256480d7b",
       "name": "Window Buffer Memory"
     },
     {
@@ -102,13 +104,13 @@
             {
               "id": "bb9845b2-3af0-4943-a15f-b7a52145d23d",
               "name": "sessionId",
-              "value": "={{ $json.data.from }}",
+              "value": "={{ $('Coalesce Trigger Inputs').item.json.from }}",
               "type": "string"
             },
             {
               "id": "c43e5a96-ca5b-4b3d-b0b9-1a17256d3719",
               "name": "chatInput",
-              "value": "={{ $json.data.body }}",
+              "value": "={{ $('Coalesce Trigger Inputs').item.json.body }}",
               "type": "string"
             },
             {
@@ -120,20 +122,27 @@
             {
               "id": "5d09832d-ecc5-4ac8-952c-dae90313eff9",
               "name": "providerId",
-              "value": "={{ $json.constants.SMS_RESPONSE_SERVICE_PROVIDER }}",
+              "value": "={{ $('Global Constants').item.json.constants.SMS_RESPONSE_SERVICE_PROVIDER }}",
+              "type": "string"
+            },
+            {
+              "id": "df27d187-2155-4ab5-be0b-7e99fe9d4e1b",
+              "name": "to",
+              "value": "={{ $('Coalesce Trigger Inputs').item.json.to }}",
               "type": "string"
             }
           ]
         },
+        "includeOtherFields": true,
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        0,
-        -80
+        820,
+        80
       ],
-      "id": "e20cecbd-52cc-489f-9c78-4edb3969d8e7",
+      "id": "16251b0d-108a-4cdc-a4d3-696b1a01ddd8",
       "name": "Edit Fields"
     },
     {
@@ -144,10 +153,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        920,
-        580
+        1520,
+        740
       ],
-      "id": "07fc838e-ec5b-4a96-aa8b-937deeeb5073",
+      "id": "5239141e-2b7f-492d-b9cf-1882621d297c",
       "name": "HTTP Request",
       "disabled": true
     },
@@ -159,10 +168,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        800,
-        600
+        300,
+        660
       ],
-      "id": "ed45b962-a79d-4a4d-a507-63570f3478ed",
+      "id": "f1c23bc8-dc6d-4106-81ad-1cdd166b815a",
       "name": "Sticky Note"
     },
     {
@@ -173,10 +182,10 @@
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
       "position": [
-        520,
-        -160
+        1260,
+        -60
       ],
-      "id": "ac023c41-69e6-4507-a680-e8f361b149de",
+      "id": "b4a35412-5e8b-4773-bc43-130ce9ff23a9",
       "name": "Chat Memory Manager"
     },
     {
@@ -215,19 +224,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -700,
-        440
+        -1220,
+        600
       ],
-      "id": "feea164d-16bc-44e3-bd60-a4a35a222295",
+      "id": "fee82608-d82c-487d-8610-f6a9eb230c4c",
       "name": "HTTP Request (Get Available Slots)",
       "credentials": {
-        "calApi": {
-          "id": "Ee5Ue2suZwExF0nO",
-          "name": "Cal account"
-        },
         "httpHeaderAuth": {
-          "id": "QBDLgIWF9t1nix6l",
-          "name": "Cal.com Header Auth"
+          "id": "uIBfphM4yR9kOR00",
+          "name": "Cal.com Header Auth account"
         }
       }
     },
@@ -259,15 +264,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -360,
-        580
+        -880,
+        740
       ],
-      "id": "22110ef6-57ec-41be-ac77-92f0e2e5d714",
+      "id": "67411647-1bab-4f65-a05f-e6d211fce528",
       "name": "HTTP Request (Get Event Types)",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QBDLgIWF9t1nix6l",
-          "name": "Cal.com Header Auth"
+          "id": "uIBfphM4yR9kOR00",
+          "name": "Cal.com Header Auth account"
         }
       }
     },
@@ -315,10 +320,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        800,
-        480
+        1400,
+        720
       ],
-      "id": "195ef09f-2668-4092-a978-850bab7744b5",
+      "id": "4fed1915-09d3-4439-a564-2e47bcd73941",
       "name": "Call (Recommend a Contractor)",
       "disabled": true
     },
@@ -365,15 +370,15 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1320,
-        240
+        2120,
+        340
       ],
-      "id": "5fd96b5a-3790-42b7-9884-9c5a45cc9366",
+      "id": "7eb64885-2da4-4c03-b3c4-2088c3bdec15",
       "name": "Book Appointment",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QBDLgIWF9t1nix6l",
-          "name": "Cal.com Header Auth"
+          "id": "uIBfphM4yR9kOR00",
+          "name": "Cal.com Header Auth account"
         }
       }
     },
@@ -413,15 +418,15 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1160,
-        280
+        1980,
+        380
       ],
-      "id": "265a5f9b-108e-4138-b47d-343abefa470e",
+      "id": "3362b8f1-8bb8-489e-ba04-70b5a1f10b49",
       "name": "Check Availability",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QBDLgIWF9t1nix6l",
-          "name": "Cal.com Header Auth"
+          "id": "uIBfphM4yR9kOR00",
+          "name": "Cal.com Header Auth account"
         }
       }
     },
@@ -448,15 +453,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -640,
-        640
+        -1160,
+        800
       ],
-      "id": "1bf174fd-449d-48b5-86cc-1efcf0cde277",
+      "id": "7343fa14-03fc-4200-a6f6-3b1ecaab7883",
       "name": "HTTP Request (Book Appointment)",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "QBDLgIWF9t1nix6l",
-          "name": "Cal.com Header Auth"
+          "id": "uIBfphM4yR9kOR00",
+          "name": "Cal.com Header Auth account"
         }
       }
     },
@@ -494,10 +499,10 @@
       "type": "n8n-nodes-base.switch",
       "typeVersion": 3.2,
       "position": [
-        260,
-        -80
+        1080,
+        80
       ],
-      "id": "36e0f3a4-eb96-4fea-b162-472c39b91f17",
+      "id": "049c71eb-bdb0-4bf8-8b8b-6353809bbef9",
       "name": "Switch"
     },
     {
@@ -507,37 +512,295 @@
             {
               "id": "a7bf304f-2d42-434e-ab04-3b4348d846ad",
               "name": "output",
-              "value": "How can I help?",
+              "value": "Hello! Thank you for contacting Totally Cool HVAC. My name is Revana, and I'm here to assist you with scheduling an appt or any equipment issues..  To begin, may I please have your name?",
               "type": "string"
             }
           ]
         },
+        "includeOtherFields": true,
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        880,
-        -160
+        1640,
+        40
       ],
-      "id": "f1b46c56-3ae9-44a3-aec3-68e72ce28535",
+      "id": "0b67761c-2c45-495a-a7b7-bd7b46fb9851",
       "name": "Edit Fields1"
     },
     {
       "parameters": {
-        "toolDescription": "Create a lead based on the address and product needed.  When booking an appointment, create a lead if you haven't already done so.",
+        "url": "https://api.cal.com/v2/bookings",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": " cal-api-version",
+              "value": "2024-08-13"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -960,
+        560
+      ],
+      "id": "56b99423-0817-4aa3-aa66-ac8847333b91",
+      "name": "HTTP Request (Get Bookings)",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "uIBfphM4yR9kOR00",
+          "name": "Cal.com Header Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-globals.globalConstants",
+      "typeVersion": 1,
+      "position": [
+        120,
+        80
+      ],
+      "id": "5131f893-7ac8-4949-8a76-d9ebe7ae2640",
+      "name": "Global Constants",
+      "credentials": {
+        "globalConstantsApi": {
+          "id": "XkalIPUhZuA2wvhN",
+          "name": "Global Constants account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "toolDescription": "Persists to long term storage important information that you must remember, such as:\nFIRST_NAME\nLAST_NAME\nADDRESS\nATTOM_ID\n\nNote that if you are calling this tool you should also consider calling the Create Lead tool.",
+        "method": "POST",
+        "url": "=https://n8n{{ $('Global Constants').item.json.constants.ENVIRONMENT_SUFFIX }}.property.com/webhook/memorize",
+        "sendBody": true,
+        "parametersBody": {
+          "values": [
+            {
+              "name": "chat_id",
+              "valueProvider": "fieldValue",
+              "value": "={{ $('Edit Fields').item.json.sessionId }}"
+            },
+            {
+              "name": "key"
+            },
+            {
+              "name": "value"
+            }
+          ]
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
+      "typeVersion": 1.1,
+      "position": [
+        1780,
+        540
+      ],
+      "id": "1c2c81ad-388e-47ea-b1cd-056ddfbdc7b2",
+      "name": "Persist Important Details"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "tableId": "memories",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Coalesce Trigger Inputs').item.json.data.from }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        320,
+        80
+      ],
+      "id": "ffc7fbe9-cf07-4ee7-861e-cffbb057a47e",
+      "name": "Supabase",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "YhjgudAWb4IrPjEW",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let output = [];\nlet memories_string = \"\";\n\nfor (const item of $input.all()) {\n  memories_string += `${item.json.key}=${item.json.value}\\r\\n`;\n}\n\noutput.push(\n    {\n      \"json\": {\n        \"memories\": memories_string\n      },\n      \"pairedItem\" : 0\n    }\n);\n\nreturn output;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        560,
+        80
+      ],
+      "id": "082b47e1-052f-41d6-88d4-a516cceb44d0",
+      "name": "Code",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "memories",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "condition": "eq",
+              "keyValue": "={{ $('Edit Fields').item.json.sessionId }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        -80
+      ],
+      "id": "5d7279e0-5e6a-4cd8-b1f7-2fc6d4365967",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "YhjgudAWb4IrPjEW",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "MentionPropertyDetails",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -1340,
+        240
+      ],
+      "id": "61b67928-36c4-4ce1-99c2-c1f2a44e6fbb",
+      "name": "Webhook - Mention Property Details",
+      "webhookId": "90537090-f1a6-4ea6-96b4-97bcaa824888"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bb9845b2-3af0-4943-a15f-b7a52145d23d",
+              "name": "sessionId",
+              "value": "={{ $json.from }}",
+              "type": "string"
+            },
+            {
+              "id": "c43e5a96-ca5b-4b3d-b0b9-1a17256d3719",
+              "name": "chatInput",
+              "value": "={{ $json.body }}",
+              "type": "string"
+            },
+            {
+              "id": "5630f842-cd4f-46c0-9d8f-c378671f04a9",
+              "name": "now",
+              "value": "={{ new Date() }}",
+              "type": "string"
+            },
+            {
+              "id": "6bce6af0-486c-4a01-a5f5-4482c8f7d9ef",
+              "name": "to",
+              "value": "={{ $json.to }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -480,
+        40
+      ],
+      "id": "84e05817-297d-453b-9be1-1050bc5cab16",
+      "name": "Coalesce Trigger Inputs"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "396949b7-a228-4cbe-bd30-332bcc5bee70",
+              "name": "body",
+              "value": "=Summarize the following information about my home with regard to the topic under discussion, paying particular attention to the age of the property and the life expectancy of the parts.  If there are any permits to change or update parts of my property, consider the date of the permit to be the replacement date of that part.\n\nOnly mention the ONE system that you are discussing with the user (e.g. HVAC, Plumbing, Roofing, etc.).\n\nProperty Attributes:\n{{ JSON.stringify($json.propertyAttributes) }}\n\nProperty Permits:\n{{ JSON.stringify($json.propertyPermits) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -760,
+        240
+      ],
+      "id": "284e2731-39b3-4995-8889-0b329122ed85",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json = item.json.body;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1040,
+        240
+      ],
+      "id": "47fb0534-7860-4910-aa69-afda8bc4d728",
+      "name": "Code1"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json = item.json.data;\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -860,
+        -60
+      ],
+      "id": "c17dc07e-e223-4493-b8e3-1de2e684a6c7",
+      "name": "Code2"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Creates a lead based on the address and product needed.  Call this tool as early as possible in the conversation once you know the address and the type of contractor the user needs.  When booking an appointment, create a lead if you haven't already done so.",
         "method": "POST",
         "url": "=https://n8n{{ $('Global Constants').item.json.constants.ENVIRONMENT_SUFFIX }}.property.com/webhook/create-lead",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"foon\" : \"{type_of_service}\",\n  \"pcom_providertype\" : \"434940000\",\n  \"pcom_contactstreet1\": \"{service_address_street}\",\n  \"pcom_contactpostalcode\": \"{service_address_postalcode}\",\n  \"pcom_source\": \"SMS\",\n  \"pcom_needlevel\": \"434940001\",\n  \"pcom_attomid\": \"\",\n  \"pcom_name\": \"New Lead\",\n  \"pcom_receivedon\": \"{now}\",\n  \"pcom_serviceproviderid\": \"{provider_id}\"\n}",
+        "jsonBody": "={\n  \"session_id\" : \"{{ $('Edit Fields').item.json.sessionId }}\",\n  \"to\" : \"{{ $('Edit Fields').item.json.to }}\",\n  \"pcom_providertype\" : \"434940000\",\n  \"pcom_contactstreet1\": \"{service_address_street}\",\n  \"pcom_contactpostalcode\": \"{service_address_postalcode}\",\n  \"pcom_source\": \"SMS\",\n  \"pcom_needlevel\": \"434940001\",\n  \"pcom_attomid\": \"\",\n  \"pcom_name\": \"New Lead\",\n  \"pcom_receivedon\": \"{now}\",\n  \"pcom_serviceproviderid\": \"{provider_id}\"\n}",
         "placeholderDefinitions": {
           "values": [
-            {
-              "name": "type_of_service",
-              "description": "Type of service the customer needs; one of: HVAC, Plumbing, Roofing",
-              "type": "string"
-            },
             {
               "name": "service_address_street",
               "description": "The street component of the address for which the customer is seeking assistance",
@@ -564,63 +827,11 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1020,
-        340
+        1960,
+        640
       ],
-      "id": "16b55304-022d-4556-bbbd-11257250b68e",
-      "name": "HTTP Request1"
-    },
-    {
-      "parameters": {
-        "url": "https://api.cal.com/v2/bookings",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": " cal-api-version",
-              "value": "2024-08-13"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        -440,
-        400
-      ],
-      "id": "5ad8c6fb-835c-4b41-9902-dc6b877048d7",
-      "name": "HTTP Request (Get Bookings)",
-      "credentials": {
-        "calApi": {
-          "id": "Ee5Ue2suZwExF0nO",
-          "name": "Cal account"
-        },
-        "httpHeaderAuth": {
-          "id": "QBDLgIWF9t1nix6l",
-          "name": "Cal.com Header Auth"
-        }
-      }
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-globals.globalConstants",
-      "typeVersion": 1,
-      "position": [
-        -280,
-        -80
-      ],
-      "id": "dd15e7fd-c3c0-47b7-8676-b784bfe0ccb1",
-      "name": "Global Constants",
-      "credentials": {
-        "globalConstantsApi": {
-          "id": "vIUTwCb1Kva2Iq7e",
-          "name": "Global Constants account"
-        }
-      }
+      "id": "09a7d29e-d829-4a77-be6a-b814b2876034",
+      "name": "Create Lead"
     }
   ],
   "pinData": {},
@@ -629,7 +840,7 @@
       "main": [
         [
           {
-            "node": "Global Constants",
+            "node": "Code2",
             "type": "main",
             "index": 0
           }
@@ -700,6 +911,11 @@
       "main": [
         [
           {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          },
+          {
             "node": "Edit Fields1",
             "type": "main",
             "index": 0
@@ -740,11 +956,6 @@
         ]
       ]
     },
-    "HTTP Request (Get Available Slots)": {
-      "main": [
-        []
-      ]
-    },
     "Switch": {
       "main": [
         [
@@ -774,7 +985,18 @@
         ]
       ]
     },
-    "HTTP Request1": {
+    "Global Constants": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Persist Important Details": {
       "ai_tool": [
         [
           {
@@ -785,12 +1007,94 @@
         ]
       ]
     },
-    "Global Constants": {
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
       "main": [
         [
           {
             "node": "Edit Fields",
             "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase1": {
+      "main": [
+        []
+      ]
+    },
+    "Webhook - Mention Property Details": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Coalesce Trigger Inputs": {
+      "main": [
+        [
+          {
+            "node": "Global Constants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Coalesce Trigger Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "Coalesce Trigger Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Lead": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
             "index": 0
           }
         ]
@@ -801,17 +1105,17 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "02bdf34c-e845-48e2-b92b-dd72fa124a92",
+  "versionId": "c031112b-fef0-4ed2-8036-e966f6f4a9ac",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
+    "instanceId": "86d5ee5e165dc6e8f9ad7adc81ef52feff96b00a66cb631ede0c9e502f9ab412"
   },
-  "id": "y8AxwekfTN4QBV90",
+  "id": "s8XzIOhMdt2aa06Y",
   "tags": [
     {
-      "createdAt": "2025-03-05T17:09:03.666Z",
-      "updatedAt": "2025-03-05T17:09:03.666Z",
-      "id": "HN3IibgUw3BIOuEX",
+      "createdAt": "2025-03-06T18:50:30.603Z",
+      "updatedAt": "2025-03-06T18:50:30.603Z",
+      "id": "hV8AD6zgRGkzRmy8",
       "name": "POC"
     }
   ]

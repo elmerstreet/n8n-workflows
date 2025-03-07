@@ -1,0 +1,164 @@
+{
+  "name": "SMS Responder - Memorize",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "memorize",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7cda5d79-2157-4f1f-ba75-32602fd990a6",
+      "name": "Webhook",
+      "webhookId": "47829f5c-49df-4ab2-915e-e39652482e14"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-globals.globalConstants",
+      "typeVersion": 1,
+      "position": [
+        220,
+        0
+      ],
+      "id": "73894700-f853-4929-8183-7453f05d5474",
+      "name": "Global Constants",
+      "credentials": {
+        "globalConstantsApi": {
+          "id": "XkalIPUhZuA2wvhN",
+          "name": "Global Constants account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "tableId": "memories",
+        "matchType": "allFilters",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "condition": "eq",
+              "keyValue": "={{ $json.body.chat_id }}"
+            },
+            {
+              "keyName": "key",
+              "condition": "eq",
+              "keyValue": "={{ $json.body.key }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        440,
+        0
+      ],
+      "id": "604c50ca-f5f4-4961-83e6-6fb8d9f678a9",
+      "name": "Supabase",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "YhjgudAWb4IrPjEW",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "tableId": "memories",
+        "fieldsUi": {
+          "fieldValues": [
+            {
+              "fieldId": "chat_id",
+              "fieldValue": "={{ $('Webhook').item.json.body.chat_id }}"
+            },
+            {
+              "fieldId": "key",
+              "fieldValue": "={{ $('Webhook').item.json.body.key }}"
+            },
+            {
+              "fieldId": "value",
+              "fieldValue": "={{ $('Webhook').item.json.body.value }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        640,
+        0
+      ],
+      "id": "04a50d08-856a-40a7-8846-0f344d1985af",
+      "name": "Supabase1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "YhjgudAWb4IrPjEW",
+          "name": "Supabase account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Global Constants",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Global Constants": {
+      "main": [
+        [
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "Supabase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e5592aa1-1397-4853-8df7-9f04afc17113",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "86d5ee5e165dc6e8f9ad7adc81ef52feff96b00a66cb631ede0c9e502f9ab412"
+  },
+  "id": "EhQZrswplnw2O6nT",
+  "tags": [
+    {
+      "createdAt": "2025-03-06T18:50:30.603Z",
+      "updatedAt": "2025-03-06T18:50:30.603Z",
+      "id": "hV8AD6zgRGkzRmy8",
+      "name": "POC"
+    }
+  ]
+}

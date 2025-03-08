@@ -10,18 +10,13 @@
       "type": "n8n-nodes-base.twilioTrigger",
       "typeVersion": 1,
       "position": [
-        -1220,
-        -60
+        -3860,
+        380
       ],
-      "id": "31d00543-f8a0-4442-a421-6b7fde791d64",
+      "id": "399e1bca-7402-4421-acaa-91661fd43891",
       "name": "Twilio Trigger",
       "webhookId": "8d143763-1567-4f78-96f9-82d6f8301a9b",
-      "credentials": {
-        "twilioApi": {
-          "id": "an5ysIaYwHpaUSA6",
-          "name": "Twilio account"
-        }
-      }
+      "disabled": true
     },
     {
       "parameters": {
@@ -33,14 +28,14 @@
       "type": "n8n-nodes-base.twilio",
       "typeVersion": 1,
       "position": [
-        2180,
-        140
+        -60,
+        480
       ],
-      "id": "1fc69315-779c-4dd5-9f47-a887ca9f02fc",
+      "id": "900f35c9-0d5b-49f6-a245-8650cf9dc240",
       "name": "Twilio",
       "credentials": {
         "twilioApi": {
-          "id": "an5ysIaYwHpaUSA6",
+          "id": "K9A1xsATyDxPP7DE",
           "name": "Twilio account"
         }
       }
@@ -48,16 +43,16 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "=Your name is Revana.  You are a helpful contractor that specializes in HVAC installation, maintenance and repair.  Make your answers brief and purely textual.  Do not use any kind of markup.\n\nStart the conversation by showing the user their name, if you know it, and asking them for it if you do not.  Do the same for the address they are contacting you about.  The name and address are important, so ALWAYS persist them to long term storage as soon as the user gives you any of those pieces of information (but do not tell the user).  Then ask if they wish to schedule a service appointment or if they would like you to help them with an issue.\n\nOnce you know the address and the type of service contractor the user needs, create a lead (but do not tell the user).\n\nAsk the user questions, one at a time, to understand the problem they are having and try to offer some suggestions to troubleshoot their issue.  When you or thinks they should book an appointment with a professional, you are that professional.  You may suggest some dates and times in the MST timezone, starting with the soonest available.  Number the suggestions.\n\nYou have  these memories about the user:\n{{ $('Code').item.json.memories }}\n\nToday is {{ $('Edit Fields').item.json.now }}\nProvider ID is {{ $('Edit Fields').item.json.providerId }}\n"
+          "systemMessage": "=Your name is Revana.  You are a helpful contractor that specializes in HVAC installation, maintenance and repair.  Make your answers brief and purely textual.  Do not use any kind of markup.\n\nStart the conversation by showing the user their name, if you know it, and asking them for it if you do not.  Do the same for the address they are contacting you about.  The name and address are important, so ALWAYS persist them to long term storage as soon as the user gives you any of those pieces of information (but do not tell the user).  Then ask if they wish to schedule a service appointment or if they would like you to help them with an issue.\n\nCreate a lead once you know the address and the type of service contractor the user needs, but do not tell the user.\n\nAsk the user questions, one at a time, to understand the problem they are having and try to offer some suggestions to troubleshoot their issue.  When you or thinks they should book an appointment with a professional, you are that professional.  You may suggest some dates and times in the MST timezone, starting with the soonest available.  Number the suggestions.\n\nYou have  these memories about the user:\n{{ $('Code').item.json.memories }}\n\nToday is {{ $('Edit Fields').item.json.now }}\nProvider ID is {{ $('Edit Fields').item.json.providerId }}\n"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 1.7,
       "position": [
-        1480,
-        220
+        -1360,
+        640
       ],
-      "id": "5b8b1958-84e7-4ad0-b9cd-6cccb92cad55",
+      "id": "46fe9293-a610-4bab-9e85-c5da4e5652ba",
       "name": "AI Agent"
     },
     {
@@ -72,14 +67,14 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
       "typeVersion": 1.2,
       "position": [
-        1320,
-        460
+        -1440,
+        820
       ],
-      "id": "960e3338-987b-4c9d-81b0-7fafde2a7bb3",
+      "id": "1253ff04-e95f-4dbb-b519-6d7f29632fee",
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "Ir0YICPWlRotoiB6",
+          "id": "gsKddIL1GgHH348U",
           "name": "OpenAi account"
         }
       }
@@ -91,10 +86,10 @@
       "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
       "typeVersion": 1.3,
       "position": [
-        1480,
-        460
+        -1580,
+        780
       ],
-      "id": "dbecfe6a-e545-4aee-ae64-850256480d7b",
+      "id": "d4cc8291-dfc1-4173-9af5-69342a0c01ae",
       "name": "Window Buffer Memory"
     },
     {
@@ -139,10 +134,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        820,
-        80
+        -1940,
+        740
       ],
-      "id": "16251b0d-108a-4cdc-a4d3-696b1a01ddd8",
+      "id": "ce05bf55-99a1-45cc-8fae-87b934375ff2",
       "name": "Edit Fields"
     },
     {
@@ -153,26 +148,12 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1520,
-        740
+        -360,
+        1240
       ],
-      "id": "5239141e-2b7f-492d-b9cf-1882621d297c",
+      "id": "f97012b2-95a2-4dcf-9473-19ab410765f3",
       "name": "HTTP Request",
       "disabled": true
-    },
-    {
-      "parameters": {
-        "content": "There is an issue calling the Provider API as an HTTP tool.  Works fine from HTTP Node, so moved that to a separate workflow which we call instead.  Research further.",
-        "height": 140
-      },
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        300,
-        660
-      ],
-      "id": "f1c23bc8-dc6d-4106-81ad-1cdd166b815a",
-      "name": "Sticky Note"
     },
     {
       "parameters": {
@@ -182,10 +163,10 @@
       "type": "@n8n/n8n-nodes-langchain.memoryManager",
       "typeVersion": 1.1,
       "position": [
-        1260,
-        -60
+        -1260,
+        400
       ],
-      "id": "b4a35412-5e8b-4773-bc43-130ce9ff23a9",
+      "id": "e57a2c3d-4c73-4221-ad57-8abeecc4c5f1",
       "name": "Chat Memory Manager"
     },
     {
@@ -224,15 +205,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1220,
-        600
+        -3920,
+        1340
       ],
-      "id": "fee82608-d82c-487d-8610-f6a9eb230c4c",
+      "id": "115e8f77-bb18-45ee-b9c4-ae14ee41a320",
       "name": "HTTP Request (Get Available Slots)",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "uIBfphM4yR9kOR00",
-          "name": "Cal.com Header Auth account"
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
         }
       }
     },
@@ -264,15 +245,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -880,
-        740
+        -3440,
+        1380
       ],
-      "id": "67411647-1bab-4f65-a05f-e6d211fce528",
+      "id": "ae010854-bfa7-47ac-8f24-6ac88b55aeb4",
       "name": "HTTP Request (Get Event Types)",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "uIBfphM4yR9kOR00",
-          "name": "Cal.com Header Auth account"
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
         }
       }
     },
@@ -320,10 +301,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
       "typeVersion": 2,
       "position": [
-        1400,
-        720
+        -220,
+        1220
       ],
-      "id": "4fed1915-09d3-4439-a564-2e47bcd73941",
+      "id": "4a32d04f-faba-4de7-85be-f44d8782aa99",
       "name": "Call (Recommend a Contractor)",
       "disabled": true
     },
@@ -370,15 +351,15 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        2120,
-        340
+        -980,
+        1120
       ],
-      "id": "7eb64885-2da4-4c03-b3c4-2088c3bdec15",
+      "id": "f58b9d52-8aa7-49e1-9cd3-d16334b8545b",
       "name": "Book Appointment",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "uIBfphM4yR9kOR00",
-          "name": "Cal.com Header Auth account"
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
         }
       }
     },
@@ -418,15 +399,15 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1980,
-        380
+        -1160,
+        1120
       ],
-      "id": "3362b8f1-8bb8-489e-ba04-70b5a1f10b49",
+      "id": "ea4366be-269c-4a63-a537-7d2068860e11",
       "name": "Check Availability",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "uIBfphM4yR9kOR00",
-          "name": "Cal.com Header Auth account"
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
         }
       }
     },
@@ -453,57 +434,17 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -1160,
-        800
+        -3700,
+        1460
       ],
-      "id": "7343fa14-03fc-4200-a6f6-3b1ecaab7883",
+      "id": "a70abbdd-d870-40a7-8938-772c9c5cb396",
       "name": "HTTP Request (Book Appointment)",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "uIBfphM4yR9kOR00",
-          "name": "Cal.com Header Auth account"
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
         }
       }
-    },
-    {
-      "parameters": {
-        "rules": {
-          "values": [
-            {
-              "conditions": {
-                "options": {
-                  "caseSensitive": true,
-                  "leftValue": "",
-                  "typeValidation": "strict",
-                  "version": 2
-                },
-                "conditions": [
-                  {
-                    "leftValue": "={{ $json.chatInput }}",
-                    "rightValue": "NEW",
-                    "operator": {
-                      "type": "string",
-                      "operation": "equals"
-                    }
-                  }
-                ],
-                "combinator": "and"
-              }
-            }
-          ]
-        },
-        "options": {
-          "fallbackOutput": "extra"
-        }
-      },
-      "type": "n8n-nodes-base.switch",
-      "typeVersion": 3.2,
-      "position": [
-        1080,
-        80
-      ],
-      "id": "049c71eb-bdb0-4bf8-8b8b-6353809bbef9",
-      "name": "Switch"
     },
     {
       "parameters": {
@@ -523,10 +464,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1640,
-        40
+        -720,
+        400
       ],
-      "id": "0b67761c-2c45-495a-a7b7-bd7b46fb9851",
+      "id": "3538f038-0ed7-4487-aa72-41b805133514",
       "name": "Edit Fields1"
     },
     {
@@ -548,15 +489,15 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -960,
-        560
+        -3680,
+        1260
       ],
-      "id": "56b99423-0817-4aa3-aa66-ac8847333b91",
+      "id": "8bd03c3a-58c5-4cb7-b888-f70b3704d3d8",
       "name": "HTTP Request (Get Bookings)",
       "credentials": {
         "httpHeaderAuth": {
-          "id": "uIBfphM4yR9kOR00",
-          "name": "Cal.com Header Auth account"
+          "id": "QBDLgIWF9t1nix6l",
+          "name": "Cal.com Header Auth"
         }
       }
     },
@@ -565,14 +506,14 @@
       "type": "n8n-nodes-globals.globalConstants",
       "typeVersion": 1,
       "position": [
-        120,
-        80
+        -2620,
+        740
       ],
-      "id": "5131f893-7ac8-4949-8a76-d9ebe7ae2640",
+      "id": "2d23a13f-eb58-476b-8c34-1cc2ee662d32",
       "name": "Global Constants",
       "credentials": {
         "globalConstantsApi": {
-          "id": "XkalIPUhZuA2wvhN",
+          "id": "vIUTwCb1Kva2Iq7e",
           "name": "Global Constants account"
         }
       }
@@ -602,10 +543,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1780,
-        540
+        -1440,
+        1100
       ],
-      "id": "1c2c81ad-388e-47ea-b1cd-056ddfbdc7b2",
+      "id": "9798713b-4d35-4d5a-a102-874e32bb3bd4",
       "name": "Persist Important Details"
     },
     {
@@ -626,15 +567,15 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        320,
-        80
+        -2400,
+        740
       ],
-      "id": "ffc7fbe9-cf07-4ee7-861e-cffbb057a47e",
+      "id": "cc1659fc-0500-4d51-b9f8-e79f8f256e65",
       "name": "Supabase",
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "YhjgudAWb4IrPjEW",
+          "id": "oDZ5EdRotsnTnAib",
           "name": "Supabase account"
         }
       }
@@ -646,10 +587,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        560,
-        80
+        -2160,
+        740
       ],
-      "id": "082b47e1-052f-41d6-88d4-a516cceb44d0",
+      "id": "8b3111d8-0099-4355-a649-2af0e8652ee4",
       "name": "Code",
       "alwaysOutputData": true
     },
@@ -671,14 +612,14 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        1800,
-        -80
+        -900,
+        300
       ],
-      "id": "5d7279e0-5e6a-4cd8-b1f7-2fc6d4365967",
+      "id": "e2a21296-f1ef-48a3-8372-78634402e0b4",
       "name": "Supabase1",
       "credentials": {
         "supabaseApi": {
-          "id": "YhjgudAWb4IrPjEW",
+          "id": "oDZ5EdRotsnTnAib",
           "name": "Supabase account"
         }
       }
@@ -692,12 +633,13 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        -1340,
-        240
+        -3860,
+        940
       ],
-      "id": "61b67928-36c4-4ce1-99c2-c1f2a44e6fbb",
+      "id": "58d5e4f6-e01a-4d40-b2d9-355e5c57e1d8",
       "name": "Webhook - Mention Property Details",
-      "webhookId": "90537090-f1a6-4ea6-96b4-97bcaa824888"
+      "webhookId": "90537090-f1a6-4ea6-96b4-97bcaa824888",
+      "disabled": true
     },
     {
       "parameters": {
@@ -726,6 +668,12 @@
               "name": "to",
               "value": "={{ $json.to }}",
               "type": "string"
+            },
+            {
+              "id": "292b627e-d817-46b2-9b2d-bb267ea9d58c",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
             }
           ]
         },
@@ -735,10 +683,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -480,
-        40
+        -2840,
+        740
       ],
-      "id": "84e05817-297d-453b-9be1-1050bc5cab16",
+      "id": "0c90797e-fdfb-46e4-93d0-05c41171ff97",
       "name": "Coalesce Trigger Inputs"
     },
     {
@@ -750,6 +698,12 @@
               "name": "body",
               "value": "=Summarize the following information about my home with regard to the topic under discussion, paying particular attention to the age of the property and the life expectancy of the parts.  If there are any permits to change or update parts of my property, consider the date of the permit to be the replacement date of that part.\n\nOnly mention the ONE system that you are discussing with the user (e.g. HVAC, Plumbing, Roofing, etc.).\n\nProperty Attributes:\n{{ JSON.stringify($json.propertyAttributes) }}\n\nProperty Permits:\n{{ JSON.stringify($json.propertyPermits) }}",
               "type": "string"
+            },
+            {
+              "id": "bff63cce-3fc3-4bf1-9e3a-8a546d809fb4",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
             }
           ]
         },
@@ -759,10 +713,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -760,
-        240
+        -3260,
+        940
       ],
-      "id": "284e2731-39b3-4995-8889-0b329122ed85",
+      "id": "ffb16d41-0583-449b-b987-054b89b19899",
       "name": "Edit Fields2"
     },
     {
@@ -772,10 +726,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -1040,
-        240
+        -3520,
+        940
       ],
-      "id": "47fb0534-7860-4910-aa69-afda8bc4d728",
+      "id": "9fd996bb-c89a-4d4f-a9e0-dacae7a6e4bf",
       "name": "Code1"
     },
     {
@@ -785,10 +739,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -860,
-        -60
+        -3540,
+        380
       ],
-      "id": "c17dc07e-e223-4493-b8e3-1de2e684a6c7",
+      "id": "1616344c-87d0-47d2-8384-05cbfc22b0b2",
       "name": "Code2"
     },
     {
@@ -827,11 +781,659 @@
       "type": "@n8n/n8n-nodes-langchain.toolHttpRequest",
       "typeVersion": 1.1,
       "position": [
-        1960,
-        640
+        -1600,
+        1160
       ],
-      "id": "09a7d29e-d829-4a77-be6a-b814b2876034",
+      "id": "ca97bf2a-d979-4505-8295-a62751f078ee",
       "name": "Create Lead"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi there! ðŸ‘‹\nThank you for contacting Totally Cool HVAC. My name is Revana, and I'm here to assist you with scheduling an appt or any equipment issues..  To begin, may I please have your name?",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3860,
+        580
+      ],
+      "id": "d437c07f-b759-4df4-a533-93531b16e561",
+      "name": "When chat message received",
+      "webhookId": "d0159bbc-a40d-455e-9cba-ea1791c347c6"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "49463c5e-7c03-4401-a0ee-d3496e405c0d",
+              "name": "from",
+              "value": "={{ $json.sessionId }}",
+              "type": "string"
+            },
+            {
+              "id": "23a5cb2f-15b6-4057-bf7a-0b19004e3e5b",
+              "name": "to",
+              "value": "chat",
+              "type": "string"
+            },
+            {
+              "id": "4ceef508-2b8a-49d0-84d0-9581b5e498c6",
+              "name": "source",
+              "value": "chat",
+              "type": "string"
+            },
+            {
+              "id": "89fb9622-205c-4729-ba04-fd71e3a1c4d0",
+              "name": "body",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3280,
+        580
+      ],
+      "id": "e25c5145-2ea9-4953-a2eb-0c930dfac352",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f30f964d-6762-4279-a31b-40196da627bd",
+              "name": "source",
+              "value": "sms",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3280,
+        380
+      ],
+      "id": "9d4ee742-7d4a-41eb-a954-0b8446e0c42d",
+      "name": "Edit Fields4"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $('Coalesce Trigger Inputs').item.json.source }}",
+                    "rightValue": "telegram",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "6fab15b1-a4e5-4411-8639-a8a45102ba4b",
+                    "leftValue": "={{ $('Coalesce Trigger Inputs').item.json.source }}",
+                    "rightValue": "sms",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "dc0105c8-24b7-46ea-9fef-b79725389e1c",
+                    "leftValue": "={{ $('Coalesce Trigger Inputs').item.json.source }}",
+                    "rightValue": "chat",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": "={{ false }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -360,
+        540
+      ],
+      "id": "1f4bdd63-2ccf-4a6c-a19e-fa7236dcd563",
+      "name": "Switch1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1b017ba5-61a6-4142-904c-ea37d1f1207f",
+              "name": "output",
+              "value": "={{ $json.output}}",
+              "type": "string"
+            },
+            {
+              "id": "923b7125-81f6-4cd7-abfc-66085a0e7f49",
+              "name": "text",
+              "value": "woop",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -60,
+        680
+      ],
+      "id": "3ed27ae6-1cc9-4d2b-b6a9-2168d3a3bd83",
+      "name": "Edit Fields5"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -3860,
+        180
+      ],
+      "id": "c2c3bef0-c367-48a8-a72f-282c2d23a669",
+      "name": "Telegram Trigger",
+      "webhookId": "d71119eb-2256-4ac3-8818-d13917b9aab3",
+      "credentials": {
+        "telegramApi": {
+          "id": "jLS6pwDDz9om9aq5",
+          "name": "Telegram account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "396949b7-a228-4cbe-bd30-332bcc5bee70",
+              "name": "body",
+              "value": "={{ $json.message.text }}",
+              "type": "string"
+            },
+            {
+              "id": "60d9cd93-6a60-4717-8623-71e0990733e4",
+              "name": "from",
+              "value": "={{ $json.message.from.id }}",
+              "type": "string"
+            },
+            {
+              "id": "77efc8ba-1bc9-4492-88d7-78794e11332d",
+              "name": "telegram",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "09d0247e-39ec-491c-8b69-f7d8a47bdec8",
+              "name": "source",
+              "value": "telegram",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -3280,
+        180
+      ],
+      "id": "25b8aaa8-2cc3-4ecd-b60d-816d86f17803",
+      "name": "Edit Fields6"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://n8n{{ $('Global Constants').item.json.constants.ENVIRONMENT_SUFFIX }}.property.com/webhook/memorize",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $json.from }}"
+            },
+            {
+              "name": "key",
+              "value": "SUMMARY"
+            },
+            {
+              "name": "value",
+              "value": "YES"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -2080,
+        540
+      ],
+      "id": "43249238-2202-4a1e-bbae-49c07e0c456a",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "ac0a6b2c-6284-47ba-af8e-0b9e4a4906ae",
+              "leftValue": "={{ $json.mode }}",
+              "rightValue": "SUMMARY",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -2320,
+        560
+      ],
+      "id": "bd64f30f-9c55-4bdd-bff4-8431d57b6bd1",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "NEW",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "f9cb5a72-ed9f-4f02-b365-86f64f471266",
+                    "leftValue": "={{ $json.chatInput }}",
+                    "rightValue": "/start",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1680,
+        460
+      ],
+      "id": "4562139c-dfde-4496-9951-fbc371d2d41c",
+      "name": "Switch2"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Coalesce Trigger Inputs').item.json.from }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -60,
+        320
+      ],
+      "id": "065e3231-0063-4ba9-b1f8-d001a101947a",
+      "name": "Telegram",
+      "webhookId": "39c08353-9a9b-4f16-b178-2e920ed827c8",
+      "credentials": {
+        "telegramApi": {
+          "id": "jLS6pwDDz9om9aq5",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# Chat Triggers\nMultiple triggers each set common properties that are passed through the common Coaleasce node.",
+        "height": 1180,
+        "width": 960,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3980,
+        -20
+      ],
+      "id": "fa413d79-3bb4-4938-8ffa-0d70127c3388",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## User Message Triggers\nInvoked by the user sending a message.",
+        "height": 660,
+        "width": 320,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3940,
+        100
+      ],
+      "id": "f6343db9-2df2-4e96-b386-6f108a6f7cc0",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## System Message Triggers\nUnvoked by the system (e.g. to trigger an additional response as if the user had submitted the message).",
+        "height": 340,
+        "width": 320,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3940,
+        800
+      ],
+      "id": "ede73277-7a68-4109-ae53-c0582a306463",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "# Prepare Submission\nSupplement the user's submitted message with additional properties describing the chat so far.",
+        "height": 620,
+        "width": 1120,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2920,
+        320
+      ],
+      "id": "2a235184-cd7a-49c8-b361-84b2b00c9f19",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Remember Summarization\nIf this is a system-generated summary, log that we've shown it so that it doesn't get repeated later.",
+        "height": 260,
+        "width": 660,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -2480,
+        440
+      ],
+      "id": "60dbe24f-2f4f-4fa2-898a-1a7613f5d3aa",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "content": "# Generate Response\nHandle certain keywords or submit the message to the AI.",
+        "height": 1140,
+        "width": 1160,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1720,
+        200
+      ],
+      "id": "e995c20c-231d-4dac-9b7b-878760228287",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "## Clear History for This Chat",
+        "height": 300,
+        "width": 720,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1300,
+        240
+      ],
+      "id": "ee163feb-4dda-4e59-92fc-73de0873b0a2",
+      "name": "Sticky Note6"
+    },
+    {
+      "parameters": {
+        "content": "## Tools Available to AI",
+        "height": 300,
+        "width": 840,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1680,
+        1000
+      ],
+      "id": "88eb63af-965e-4826-8cee-06d7a61276fd",
+      "name": "Sticky Note7"
+    },
+    {
+      "parameters": {
+        "content": "## Internal",
+        "height": 220,
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1660,
+        1060
+      ],
+      "id": "f3a4cf59-df58-4069-b820-3fe409285e22",
+      "name": "Sticky Note9"
+    },
+    {
+      "parameters": {
+        "content": "## Out of Scope",
+        "height": 220,
+        "width": 380
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -440,
+        1180
+      ],
+      "id": "903fdc13-eaf0-41f6-827d-434ccb6a66d8",
+      "name": "Sticky Note10"
+    },
+    {
+      "parameters": {
+        "content": "# Respond via the Appropriate Channel\n",
+        "height": 640,
+        "width": 740,
+        "color": 6
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        220
+      ],
+      "id": "8fb7e759-5d29-43b7-a1c9-78942bbc6cb8",
+      "name": "Sticky Note11"
+    },
+    {
+      "parameters": {
+        "content": "# Test triggers",
+        "height": 460,
+        "width": 800,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -3980,
+        1220
+      ],
+      "id": "85afc0c8-03a1-4be4-a40f-7f71c0a9c7bc",
+      "name": "Sticky Note12"
+    },
+    {
+      "parameters": {
+        "content": "## Cal.com",
+        "height": 220,
+        "width": 360
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1220,
+        1060
+      ],
+      "id": "b91a3496-0a04-4d68-b8b8-bdf7d04fd5eb",
+      "name": "Sticky Note13"
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 380,
+        "width": 500,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -4180,
+        180
+      ],
+      "id": "68191dfe-7cfe-481e-9957-8038902b6765",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "content": "### Activate in Production\nThese triggers will consume messages that are intended for the Production system.  Until messages originate from Dev instances of Twilio and Telegram, they must remain deactivated in Dev and be Activated when deployed to Production",
+        "height": 380,
+        "width": 280,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -4180,
+        180
+      ],
+      "id": "33dcbff0-024c-48dd-99f5-3ffa9641181b",
+      "name": "Sticky Note15"
     }
   ],
   "pinData": {},
@@ -851,7 +1453,7 @@
       "main": [
         [
           {
-            "node": "Twilio",
+            "node": "Switch1",
             "type": "main",
             "index": 0
           }
@@ -889,7 +1491,7 @@
       "main": [
         [
           {
-            "node": "Switch",
+            "node": "Switch2",
             "type": "main",
             "index": 0
           }
@@ -956,29 +1558,11 @@
         ]
       ]
     },
-    "Switch": {
-      "main": [
-        [
-          {
-            "node": "Chat Memory Manager",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Edit Fields1": {
       "main": [
         [
           {
-            "node": "Twilio",
+            "node": "Switch1",
             "type": "main",
             "index": 0
           }
@@ -990,6 +1574,11 @@
         [
           {
             "node": "Supabase",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "If",
             "type": "main",
             "index": 0
           }
@@ -1027,11 +1616,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "Supabase1": {
-      "main": [
-        []
       ]
     },
     "Webhook - Mention Property Details": {
@@ -1082,7 +1666,7 @@
       "main": [
         [
           {
-            "node": "Coalesce Trigger Inputs",
+            "node": "Edit Fields4",
             "type": "main",
             "index": 0
           }
@@ -1099,23 +1683,145 @@
           }
         ]
       ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Coalesce Trigger Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields4": {
+      "main": [
+        [
+          {
+            "node": "Coalesce Trigger Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Twilio",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields6": {
+      "main": [
+        [
+          {
+            "node": "Coalesce Trigger Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "Chat Memory Manager",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Chat Memory Manager",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields5": {
+      "main": [
+        []
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "c031112b-fef0-4ed2-8036-e966f6f4a9ac",
+  "versionId": "9c4f8a96-c0be-45e9-87ae-677c463775a6",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "86d5ee5e165dc6e8f9ad7adc81ef52feff96b00a66cb631ede0c9e502f9ab412"
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
   },
-  "id": "s8XzIOhMdt2aa06Y",
+  "id": "y8AxwekfTN4QBV90",
   "tags": [
     {
-      "createdAt": "2025-03-06T18:50:30.603Z",
-      "updatedAt": "2025-03-06T18:50:30.603Z",
-      "id": "hV8AD6zgRGkzRmy8",
+      "createdAt": "2025-03-05T17:09:03.666Z",
+      "updatedAt": "2025-03-05T17:09:03.666Z",
+      "id": "HN3IibgUw3BIOuEX",
       "name": "POC"
     }
   ]

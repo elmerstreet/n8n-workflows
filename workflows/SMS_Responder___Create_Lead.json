@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        0,
-        0
+        -40,
+        400
       ],
-      "id": "50a52a0b-ff41-4e28-ba35-d56a578c1e56",
+      "id": "35e1653b-0b19-4e27-ba03-35cbacf08631",
       "name": "Webhook",
       "webhookId": "24a4436b-1ade-4d0f-beec-e5a481ebc6f4"
     },
@@ -23,14 +23,14 @@
       "type": "n8n-nodes-globals.globalConstants",
       "typeVersion": 1,
       "position": [
-        220,
-        0
+        440,
+        400
       ],
-      "id": "8acf4524-7add-48fe-b52a-e9f845b2104f",
+      "id": "ad1fef10-65a8-4251-9891-6af48bc4a4a5",
       "name": "Global Constants",
       "credentials": {
         "globalConstantsApi": {
-          "id": "XkalIPUhZuA2wvhN",
+          "id": "vIUTwCb1Kva2Iq7e",
           "name": "Global Constants account"
         }
       }
@@ -53,10 +53,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        460,
-        0
+        1480,
+        420
       ],
-      "id": "b6e2499a-4666-45d2-9053-9709f1707d30",
+      "id": "1af21906-b806-4816-89f8-3e3d5d2717cc",
       "name": "HTTP Request (POST Lead)"
     },
     {
@@ -68,7 +68,7 @@
           "parameters": [
             {
               "name": "email",
-              "value": "gary@property.com"
+              "value": "gary@property.com, nfergis@property.com"
             },
             {
               "name": "leadID",
@@ -81,10 +81,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        680,
-        0
+        1700,
+        420
       ],
-      "id": "d1cc9b80-afb3-4833-a7bb-db570f9ba035",
+      "id": "81e20b33-94ca-4d15-a207-f6b1fc1e3016",
       "name": "HTTP Request (POST KBYG Email)"
     },
     {
@@ -113,10 +113,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        680,
-        -180
+        1700,
+        240
       ],
-      "id": "7dfedfb5-35ea-4399-ab28-a895e1c1ec68",
+      "id": "4ec6476e-15eb-469a-8dd3-c7adbce019da",
       "name": "HTTP Request (Remember Attom ID)"
     },
     {
@@ -149,11 +149,92 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        680,
-        200
+        1700,
+        620
       ],
-      "id": "3c83239a-b82b-4730-ac79-aa05b0e95ac7",
+      "id": "48dda135-c0ae-4aaf-b6de-333ad0c558ed",
       "name": "HTTP Request (Mention Property Details)"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "tableId": "memories",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "chat_id",
+              "keyValue": "={{ $json.body.session_id }}"
+            },
+            {
+              "keyName": "key",
+              "keyValue": "SUMMARY"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        360,
+        220
+      ],
+      "id": "765615df-78dd-4be5-b36d-fddfeb7990a1",
+      "name": "Supabase",
+      "alwaysOutputData": true,
+      "credentials": {
+        "supabaseApi": {
+          "id": "oDZ5EdRotsnTnAib",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "dbcd6fbb-546a-49eb-97e6-44702c39e2c4",
+              "leftValue": "={{ $json.isEmpty() }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        560,
+        220
+      ],
+      "id": "00fbdd21-20dc-4fdd-b589-b7889f185921",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "useDataOfInput": 2
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        940,
+        340
+      ],
+      "id": "afbb0122-6b20-4d2b-9967-3708946180aa",
+      "name": "Merge"
     }
   ],
   "pinData": {},
@@ -165,6 +246,11 @@
             "node": "Global Constants",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Supabase",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -173,9 +259,9 @@
       "main": [
         [
           {
-            "node": "HTTP Request (POST Lead)",
+            "node": "Merge",
             "type": "main",
-            "index": 0
+            "index": 1
           }
         ]
       ]
@@ -200,23 +286,56 @@
           }
         ]
       ]
+    },
+    "Supabase": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request (POST Lead)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "8c726c91-9f8e-433b-9768-c524b5ded625",
+  "versionId": "f6d761f4-b15c-4312-b24a-51a72370750a",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "86d5ee5e165dc6e8f9ad7adc81ef52feff96b00a66cb631ede0c9e502f9ab412"
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
   },
-  "id": "hYsecy74iha7sInu",
+  "id": "rubDxAGF0CDtQTJW",
   "tags": [
     {
-      "createdAt": "2025-03-06T18:50:30.603Z",
-      "updatedAt": "2025-03-06T18:50:30.603Z",
-      "id": "hV8AD6zgRGkzRmy8",
+      "createdAt": "2025-03-05T17:09:03.666Z",
+      "updatedAt": "2025-03-05T17:09:03.666Z",
+      "id": "HN3IibgUw3BIOuEX",
       "name": "POC"
     }
   ]

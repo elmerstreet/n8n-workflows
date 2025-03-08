@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        0,
-        0
+        -140,
+        -80
       ],
-      "id": "7cda5d79-2157-4f1f-ba75-32602fd990a6",
+      "id": "6d5cc01e-d093-42d7-8691-1a45b18d9207",
       "name": "Webhook",
       "webhookId": "47829f5c-49df-4ab2-915e-e39652482e14"
     },
@@ -23,14 +23,14 @@
       "type": "n8n-nodes-globals.globalConstants",
       "typeVersion": 1,
       "position": [
-        220,
-        0
+        80,
+        -80
       ],
-      "id": "73894700-f853-4929-8183-7453f05d5474",
+      "id": "a3eaa652-7007-43d3-b8b4-a71084504916",
       "name": "Global Constants",
       "credentials": {
         "globalConstantsApi": {
-          "id": "XkalIPUhZuA2wvhN",
+          "id": "vIUTwCb1Kva2Iq7e",
           "name": "Global Constants account"
         }
       }
@@ -58,15 +58,15 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        440,
-        0
+        300,
+        -80
       ],
-      "id": "604c50ca-f5f4-4961-83e6-6fb8d9f678a9",
+      "id": "50edcb2f-4b10-4abe-830e-2eb22b872890",
       "name": "Supabase",
       "alwaysOutputData": true,
       "credentials": {
         "supabaseApi": {
-          "id": "YhjgudAWb4IrPjEW",
+          "id": "oDZ5EdRotsnTnAib",
           "name": "Supabase account"
         }
       }
@@ -94,14 +94,14 @@
       "type": "n8n-nodes-base.supabase",
       "typeVersion": 1,
       "position": [
-        640,
-        0
+        500,
+        -80
       ],
-      "id": "04a50d08-856a-40a7-8846-0f344d1985af",
+      "id": "6b1872da-15d8-46db-8b36-9bbc0feaa9bc",
       "name": "Supabase1",
       "credentials": {
         "supabaseApi": {
-          "id": "YhjgudAWb4IrPjEW",
+          "id": "oDZ5EdRotsnTnAib",
           "name": "Supabase account"
         }
       }
@@ -147,17 +147,17 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "e5592aa1-1397-4853-8df7-9f04afc17113",
+  "versionId": "a01d4902-e04a-43ed-8528-41f9036dd48e",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "86d5ee5e165dc6e8f9ad7adc81ef52feff96b00a66cb631ede0c9e502f9ab412"
+    "instanceId": "f876f250fa5a115d8d07a94200dc89936ebeaf5e3f23d504444e5e3ce0a4587b"
   },
-  "id": "EhQZrswplnw2O6nT",
+  "id": "aRe3Hgkf2BThWvO5",
   "tags": [
     {
-      "createdAt": "2025-03-06T18:50:30.603Z",
-      "updatedAt": "2025-03-06T18:50:30.603Z",
-      "id": "hV8AD6zgRGkzRmy8",
+      "createdAt": "2025-03-05T17:09:03.666Z",
+      "updatedAt": "2025-03-05T17:09:03.666Z",
+      "id": "HN3IibgUw3BIOuEX",
       "name": "POC"
     }
   ]
